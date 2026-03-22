@@ -1,0 +1,16 @@
+{
+  "name": "pd26",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "bun --workspace build",
+    "lint": "bun lint -w"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1"
+  },
+  "prettier": {}
+}
