@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Coastal named tokens */
+  --color-navy: var(--navy);
+  --color-teal: var(--teal);
+  --color-sand: var(--sand);
+  --color-gold: var(--gold);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* Coastal palette */
+  --navy: #1a2744;
+  --teal: #2a7f7f;
+  --sand: #f5efe6;
+  --gold: #c9a84c;
+
+  --radius: 0.5rem;
+
+  /* Semantic tokens */
+  --background: #f5efe6;
+  --foreground: #1a2744;
+  --card: #fffdf9;
+  --card-foreground: #1a2744;
+  --popover: #fffdf9;
+  --popover-foreground: #1a2744;
+  --primary: #c9a84c;
+  --primary-foreground: #1a2744;
+  --secondary: #2a7f7f;
+  --secondary-foreground: #f5efe6;
+  --muted: #e8ddd0;
+  --muted-foreground: #5a6a8a;
+  --accent: #2a7f7f;
+  --accent-foreground: #f5efe6;
+  --destructive: #c0392b;
+  --border: #d4c8b8;
+  --input: #d4c8b8;
+  --ring: #c9a84c;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
