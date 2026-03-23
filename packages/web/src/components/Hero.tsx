@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 
-export default function Hero() {
+const Hero = () => {
   return (
     <section
       id="home"
@@ -74,4 +74,6 @@ export default function Hero() {
       </a>
     </section>
   );
-}
+};
+
+export default Hero;

@@ -14,7 +14,7 @@ const TIMELINE = [
   { time: "11:10 AM", event: "Return ferry to Edmonds" },
 ];
 
-export default function EventInfo() {
+const EventInfo = () => {
   return (
     <section id="about" className="px-6 py-20">
       <div className="mx-auto max-w-5xl">
@@ -106,4 +106,6 @@ export default function EventInfo() {
       </div>
     </section>
   );
-}
+};
+
+export default EventInfo;

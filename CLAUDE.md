@@ -122,9 +122,23 @@ routes: {
 
 Use `bunx shadcn@latest add <component>` from `packages/web/`. Do not manually edit files under `src/components/ui/`.
 
+### React Components
+
+Use arrow functions for all components:
+
+```tsx
+const MyComponent = () => {
+  return <div />;
+};
+
+export default MyComponent;
+```
+
 ### Styling
 
-- CSS variables are defined in `src/styles/globals.css` using Tailwind v4's `@theme` block.
+- Tailwind CSS v4. The CSS entry point is `src/index.css` → `src/styles/globals.css`.
+- `globals.css` uses `@theme inline` (tokens reference `:root` CSS variables) + `:root` block with actual values.
+- `bun-plugin-tailwind` must be in `dependencies` (not `devDependencies`) for the dev server's `bunfig.toml` to load it.
 - Coastal palette: `--navy` (#1a2744), `--teal` (#2a7f7f), `--sand` (#f5efe6), `--gold` (#c9a84c).
 - Use the `cn()` helper from `@/lib/utils` to merge Tailwind classes.
 

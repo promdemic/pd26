@@ -4,7 +4,7 @@ import RSVPForm from "@/components/RSVPForm";
 import VolunteerForm from "@/components/VolunteerForm";
 import Footer from "@/components/Footer";
 
-function Nav() {
+const Nav = () => {
   return (
     <nav
       className="fixed top-0 z-50 w-full backdrop-blur-md"

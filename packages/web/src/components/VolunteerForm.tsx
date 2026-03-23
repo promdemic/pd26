@@ -27,7 +27,7 @@ interface FormState {
   role: string;
 }
 
-export default function VolunteerForm() {
+const VolunteerForm = () => {
   const [form, setForm] = useState<FormState>({ name: "", email: "", role: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success">(
     "idle",
@@ -165,4 +165,6 @@ export default function VolunteerForm() {
       </div>
     </section>
   );
-}
+};
+
+export default VolunteerForm;

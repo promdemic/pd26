@@ -19,7 +19,7 @@ interface FormState {
   overnight: string;
 }
 
-export default function RSVPForm() {
+const RSVPForm = () => {
   const [form, setForm] = useState<FormState>({
     name: "",
     dietary: "",
@@ -157,4 +157,6 @@ export default function RSVPForm() {
       </div>
     </section>
   );
-}
+};
+
+export default RSVPForm;
