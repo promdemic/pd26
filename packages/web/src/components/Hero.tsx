@@ -1,22 +1,36 @@
 import { Button } from "@/components/ui/button";
+import heroSmWebp from "../assets/hero-sm.webp";
+import heroSmJpg from "../assets/hero-sm.jpg";
+import heroLgWebp from "../assets/hero-lg.webp";
+import heroLgJpg from "../assets/hero-lg.jpg";
 
 const Hero = () => {
   return (
     <section
       id="home"
       className="relative flex min-h-screen flex-col items-center justify-center px-6 text-center"
-      style={{
-        background: "linear-gradient(160deg, #1a2744 0%, #2a7f7f 100%)",
-      }}
     >
-      {/* Subtle wave overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-10"
-        style={{
-          backgroundImage:
-            "radial-gradient(ellipse at 20% 80%, #c9a84c 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, #f5efe6 0%, transparent 50%)",
-        }}
-      />
+      {/* Responsive photo background */}
+      <picture className="absolute inset-0">
+        <source
+          type="image/webp"
+          srcSet={`${heroSmWebp} 800w, ${heroLgWebp} 1920w`}
+          sizes="100vw"
+        />
+        <source
+          type="image/jpeg"
+          srcSet={`${heroSmJpg} 800w, ${heroLgJpg} 1920w`}
+          sizes="100vw"
+        />
+        <img
+          src={heroLgJpg}
+          alt="Students at Promdemic"
+          className="h-full w-full object-cover object-center"
+          fetchPriority="high"
+        />
+      </picture>
+      {/* Dark navy overlay for readability */}
+      <div className="absolute inset-0 bg-[#1a2744]/75" />
 
       <div className="relative z-10 max-w-3xl space-y-6">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#c9a84c]">
