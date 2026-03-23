@@ -1,13 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const TIMELINE = [
-  { time: "4:30 PM", event: "Meet at Edmonds Ferry Terminal" },
-  { time: "5:25 PM", event: "Ferry Departure (foot passengers)" },
-  { time: "5:50 PM", event: "Arrive Kingston — shuttle pickup" },
+  { time: "4:20 PM", event: "Meet at Edmonds Ferry Terminal" },
+  { time: "4:45 PM", event: "Ferry Departure (foot passengers)" },
+  { time: "5:15 PM", event: "Arrive Kingston — shuttle pickup" },
   { time: "6:15 PM", event: "Mocktail Hour & Photos" },
-  { time: "7:15 PM", event: "Sunset Buffet Dinner" },
+  { time: "7:15 PM", event: "Sunset Dinner" },
   { time: "8:30 PM", event: "Dancing & DJ" },
-  { time: "10:30 PM", event: "Fire Pit & S'mores Wind-Down" },
+  { time: "10:30 PM", event: "Fire Pit & S'mores" },
   { time: "11:00 PM", event: "Overnight transition / optional pickup" },
   { time: "9:00 AM", event: "Farewell Pancake Breakfast" },
   { time: "10:30 AM", event: "Morning shuttles to Kingston Terminal" },
@@ -77,13 +77,10 @@ const EventInfo = () => {
                 <CardTitle className="text-[#1a2744]">Food & Fun</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 text-sm text-[#1a2744]">
-                <p className="font-semibold text-[#2a7f7f]">Dinner Buffet</p>
-                <p>
-                  Grilled salmon · herb roasted chicken · vegetarian pasta ·
-                  summer corn salad · roasted potatoes · Kingston sourdough
-                </p>
+                <p className="font-semibold text-[#2a7f7f]">Dinner</p>
+                <p>TBA - but expect something delicious!</p>
                 <p className="mt-2 font-semibold text-[#2a7f7f]">Dessert</p>
-                <p>Promdemic cupcakes · beachside s'mores station</p>
+                <p>TBA - Promdemic cupcakes? · beachside s'mores station?</p>
                 <p className="mt-2 font-semibold text-[#2a7f7f]">Morning</p>
                 <p>Pancakes & fruit breakfast for overnight guests</p>
               </CardContent>
