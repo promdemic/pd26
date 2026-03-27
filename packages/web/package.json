@@ -5,7 +5,7 @@
     "dev": "bun --hot src/index.ts",
     "build": "bun run build.ts",
     "start": "NODE_ENV=production bun src/index.ts",
-    "seed": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 bun run scripts/seed-timeline.ts",
+    "seed": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099 bun run scripts/seed-timeline.ts",
     "lint": "eslint"
   },
   "devDependencies": {
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@pd26/schemas": "workspace:*",
+    "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.4",
