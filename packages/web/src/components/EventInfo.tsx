@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuth } from "@/hooks/useAuth";
 import { useTimeline } from "@/hooks/useTimeline";
+import TimelineEditor from "@/components/TimelineEditor";
 import { useRef } from "react";
 
 const SKELETON_WIDTHS = ["w-48", "w-56", "w-40", "w-52", "w-44", "w-48", "w-36", "w-52", "w-44", "w-40", "w-48"];
@@ -17,7 +19,20 @@ const TimelineSkeleton = () => (
 
 const EventInfo = () => {
   const editingRef = useRef(false);
-  const { state } = useTimeline(editingRef);
+  const { state: timelineState, saveTimeline, flushPending } = useTimeline(editingRef);
+  const { state: authState } = useAuth();
+
+  const isAdmin = authState.status === "authenticated" && authState.isAdmin;
+
+  const handleSave = async (entries: Parameters<typeof saveTimeline>[0]) => {
+    if (authState.status !== "authenticated") return;
+    await saveTimeline(entries, authState.user.uid);
+  };
+
+  const handleEditingChange = (editing: boolean) => {
+    editingRef.current = editing;
+    if (!editing) flushPending();
+  };
 
   return (
     <section id="about" className="px-6 py-20">
@@ -33,21 +48,17 @@ const EventInfo = () => {
               <CardTitle className="text-[#1a2744]">Schedule</CardTitle>
             </CardHeader>
             <CardContent>
-              {state.status === "loading" && <TimelineSkeleton />}
-              {state.status === "error" && (
+              {timelineState.status === "loading" && <TimelineSkeleton />}
+              {timelineState.status === "error" && (
                 <p className="text-sm text-[#1a2744]/60">Schedule unavailable — check back soon.</p>
               )}
-              {state.status === "success" && (
-                <ol className="space-y-3">
-                  {state.entries.map(({ id, time, label }) => (
-                    <li key={id} className="flex gap-4">
-                      <span className="w-20 shrink-0 text-right text-sm font-semibold text-[#c9a84c]">
-                        {time}
-                      </span>
-                      <span className="text-sm text-[#1a2744]">{label}</span>
-                    </li>
-                  ))}
-                </ol>
+              {timelineState.status === "success" && (
+                <TimelineEditor
+                  entries={timelineState.entries}
+                  isAdmin={isAdmin}
+                  onSave={handleSave}
+                  onEditingChange={handleEditingChange}
+                />
               )}
             </CardContent>
           </Card>

@@ -1,9 +1,14 @@
 import { z } from "zod";
 
+// "4:20 PM", "11:10 AM", etc.
+export const timeStringSchema = z
+  .string()
+  .regex(/^\d{1,2}:\d{2} (AM|PM)$/, "Must be in h:mm AM/PM format");
+
 export const TimelineEntrySchema = z.object({
   id: z.string(),
-  time: z.string(),
-  label: z.string(),
+  time: timeStringSchema,
+  label: z.string().min(1, "Label is required"),
 });
 
 export const EventInfoSchema = z.object({
