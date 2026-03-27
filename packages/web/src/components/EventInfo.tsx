@@ -1,20 +1,24 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTimeline } from "@/hooks/useTimeline";
+import { useRef } from "react";
 
-const TIMELINE = [
-  { time: "4:20 PM", event: "Meet at Edmonds Ferry Terminal" },
-  { time: "4:45 PM", event: "Ferry Departure (foot passengers)" },
-  { time: "5:15 PM", event: "Arrive Kingston — shuttle pickup" },
-  { time: "6:15 PM", event: "Mocktail Hour & Photos" },
-  { time: "7:15 PM", event: "Sunset Dinner" },
-  { time: "8:30 PM", event: "Dancing & DJ" },
-  { time: "10:30 PM", event: "Fire Pit & S'mores" },
-  { time: "11:00 PM", event: "Overnight transition / optional pickup" },
-  { time: "9:00 AM", event: "Farewell Pancake Breakfast" },
-  { time: "10:30 AM", event: "Morning shuttles to Kingston Terminal" },
-  { time: "11:10 AM", event: "Return ferry to Edmonds" },
-];
+const SKELETON_WIDTHS = ["w-48", "w-56", "w-40", "w-52", "w-44", "w-48", "w-36", "w-52", "w-44", "w-40", "w-48"];
+
+const TimelineSkeleton = () => (
+  <ol className="space-y-3">
+    {SKELETON_WIDTHS.map((w, i) => (
+      <li key={i} className="flex gap-4">
+        <span className="w-20 shrink-0 rounded bg-[#c9a84c]/20 animate-pulse h-4" />
+        <span className={`${w} rounded bg-[#1a2744]/10 animate-pulse h-4`} />
+      </li>
+    ))}
+  </ol>
+);
 
 const EventInfo = () => {
+  const editingRef = useRef(false);
+  const { state } = useTimeline(editingRef);
+
   return (
     <section id="about" className="px-6 py-20">
       <div className="mx-auto max-w-5xl">
@@ -29,16 +33,22 @@ const EventInfo = () => {
               <CardTitle className="text-[#1a2744]">Schedule</CardTitle>
             </CardHeader>
             <CardContent>
-              <ol className="space-y-3">
-                {TIMELINE.map(({ time, event }) => (
-                  <li key={time} className="flex gap-4">
-                    <span className="w-20 shrink-0 text-right text-sm font-semibold text-[#c9a84c]">
-                      {time}
-                    </span>
-                    <span className="text-sm text-[#1a2744]">{event}</span>
-                  </li>
-                ))}
-              </ol>
+              {state.status === "loading" && <TimelineSkeleton />}
+              {state.status === "error" && (
+                <p className="text-sm text-[#1a2744]/60">Schedule unavailable — check back soon.</p>
+              )}
+              {state.status === "success" && (
+                <ol className="space-y-3">
+                  {state.entries.map(({ id, time, label }) => (
+                    <li key={id} className="flex gap-4">
+                      <span className="w-20 shrink-0 text-right text-sm font-semibold text-[#c9a84c]">
+                        {time}
+                      </span>
+                      <span className="text-sm text-[#1a2744]">{label}</span>
+                    </li>
+                  ))}
+                </ol>
+              )}
             </CardContent>
           </Card>
 
