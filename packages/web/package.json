@@ -6,12 +6,14 @@
     "build": "bun run build.ts",
     "start": "NODE_ENV=production bun src/index.ts",
     "seed": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099 bun run scripts/seed-timeline.ts",
+    "test": "FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099 bun test test/",
     "lint": "eslint"
   },
   "devDependencies": {
     "@eslint/css": "^1.0.0",
     "@eslint/js": "^10.0.1",
     "@eslint/markdown": "^7.5.1",
+    "@firebase/rules-unit-testing": "^5.0.0",
     "@types/bun": "latest",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -38,6 +38,7 @@
         "@eslint/css": "^1.0.0",
         "@eslint/js": "^10.0.1",
         "@eslint/markdown": "^7.5.1",
+        "@firebase/rules-unit-testing": "^5.0.0",
         "@types/bun": "latest",
         "@types/react": "^19",
         "@types/react-dom": "^19",
@@ -174,6 +175,8 @@
     "@firebase/remote-config-compat": ["@firebase/remote-config-compat@0.2.23", "", { "dependencies": { "@firebase/component": "0.7.2", "@firebase/logger": "0.5.0", "@firebase/remote-config": "0.8.2", "@firebase/remote-config-types": "0.5.0", "@firebase/util": "1.15.0", "tslib": "^2.1.0" }, "peerDependencies": { "@firebase/app-compat": "0.x" } }, "sha512-4+KqRRHEUUmKT6tFmnpWATOsaFfmSuBs1jXH8JzVtMLEYqq/WS9IDM92OdefFDSrAA2xGd0WN004z8mKeIIscw=="],
 
     "@firebase/remote-config-types": ["@firebase/remote-config-types@0.5.0", "", {}, "sha512-vI3bqLoF14L/GchtgayMiFpZJF+Ao3uR8WCde0XpYNkSokDpAKca2DxvcfeZv7lZUqkUwQPL2wD83d3vQ4vvrg=="],
+
+    "@firebase/rules-unit-testing": ["@firebase/rules-unit-testing@5.0.0", "", { "peerDependencies": { "firebase": "^12.0.0" } }, "sha512-C6+d3Msgjnqay2ml663ChvKYoD8VsQ+TIa0e+fGq0LFC0CKSPlacT1EVGL/ryo6Rc+wFs7Fpqz3fRlYdUEa2bA=="],
 
     "@firebase/storage": ["@firebase/storage@0.14.2", "", { "dependencies": { "@firebase/component": "0.7.2", "@firebase/util": "1.15.0", "tslib": "^2.1.0" }, "peerDependencies": { "@firebase/app": "0.x" } }, "sha512-o/culaTeJ8GRpKXRJov21rux/n9dRaSOWLebyatFP2sqEdCxQPjVA1H9Z2fzYwQxMIU0JVmC7SPPmU11v7L6vQ=="],
 
