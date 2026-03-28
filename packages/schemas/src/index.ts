@@ -19,3 +19,13 @@ export const EventInfoSchema = z.object({
 
 export type TimelineEntry = z.infer<typeof TimelineEntrySchema>;
 export type EventInfo = z.infer<typeof EventInfoSchema>;
+
+export const RsvpSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  dietary: z.string().optional(),
+  songs: z.string().optional(),
+  overnight: z.boolean(),
+  updatedAt: z.unknown().optional(),
+});
+
+export type Rsvp = z.infer<typeof RsvpSchema>;
