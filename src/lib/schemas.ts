@@ -11,13 +11,23 @@ export const TimelineEntrySchema = z.object({
   label: z.string().min(1, "Label is required"),
 });
 
+export const InfoItemSchema = z.object({
+  label: z.string(),
+  body: z.string(),
+  href: z.string().optional(), // preserved on save; not exposed in editor UI
+});
+
 export const EventInfoSchema = z.object({
   timeline: z.array(TimelineEntrySchema),
+  gettingThere: z.array(InfoItemSchema).optional(),
+  food: z.array(InfoItemSchema).optional(),
+  overnight: z.array(InfoItemSchema).optional(),
   updatedAt: z.unknown().optional(),
   updatedBy: z.string().optional(),
 });
 
 export type TimelineEntry = z.infer<typeof TimelineEntrySchema>;
+export type InfoItem = z.infer<typeof InfoItemSchema>;
 export type EventInfo = z.infer<typeof EventInfoSchema>;
 
 export const RsvpSchema = z.object({

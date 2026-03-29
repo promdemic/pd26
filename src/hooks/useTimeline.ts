@@ -1,16 +1,21 @@
 import { db } from "@/lib/firebase";
-import { EventInfoSchema, type TimelineEntry } from "@/lib/schemas";
+import { EventInfoSchema, type InfoItem, type TimelineEntry } from "@/lib/schemas";
 import { doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 
-type State =
-  | { status: "loading" }
-  | { status: "success"; entries: TimelineEntry[] }
-  | { status: "error" };
+type SuccessState = {
+  status: "success";
+  entries: TimelineEntry[];
+  gettingThere?: InfoItem[];
+  food?: InfoItem[];
+  overnight?: InfoItem[];
+};
+
+type State = { status: "loading" } | SuccessState | { status: "error" };
 
 export const useTimeline = (editingRef: React.RefObject<boolean>) => {
   const [state, setState] = useState<State>({ status: "loading" });
-  const pendingRef = useRef<TimelineEntry[] | null>(null);
+  const pendingRef = useRef<SuccessState | null>(null);
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -20,40 +25,56 @@ export const useTimeline = (editingRef: React.RefObject<boolean>) => {
           setState({ status: "success", entries: [] });
           return;
         }
-        const { data, error, success } = EventInfoSchema.safeParse(snap.data());
-        if (!success) {
-          console.error("Failed to parse timeline data:", error);
+        const parsed = EventInfoSchema.safeParse(snap.data());
+        if (!parsed.success) {
+          console.error("Failed to parse timeline data:", parsed.error);
           setState({ status: "error" });
           return;
         }
-        const entries = data.timeline;
+        const next: SuccessState = {
+          status: "success",
+          entries: parsed.data.timeline,
+          gettingThere: parsed.data.gettingThere,
+          food: parsed.data.food,
+          overnight: parsed.data.overnight,
+        };
         if (editingRef.current) {
-          pendingRef.current = entries;
+          pendingRef.current = next;
         } else {
-          setState({ status: "success", entries });
+          setState(next);
         }
       },
-      () => {
-        setState({ status: "error" });
-      },
+      () => setState({ status: "error" }),
     );
     return unsub;
   }, [editingRef]);
 
   const flushPending = () => {
     if (pendingRef.current) {
-      setState({ status: "success", entries: pendingRef.current });
+      setState(pendingRef.current);
       pendingRef.current = null;
     }
   };
 
   const saveTimeline = async (entries: TimelineEntry[], uid: string) => {
-    await setDoc(doc(db, "eventInfo", "main"), {
-      timeline: entries,
-      updatedAt: serverTimestamp(),
-      updatedBy: uid,
-    });
+    await setDoc(
+      doc(db, "eventInfo", "main"),
+      { timeline: entries, updatedAt: serverTimestamp(), updatedBy: uid },
+      { merge: true },
+    );
   };
 
-  return { state, saveTimeline, flushPending };
+  const saveSection = async (
+    field: "gettingThere" | "food" | "overnight",
+    items: InfoItem[],
+    uid: string,
+  ) => {
+    await setDoc(
+      doc(db, "eventInfo", "main"),
+      { [field]: items, updatedAt: serverTimestamp(), updatedBy: uid },
+      { merge: true },
+    );
+  };
+
+  return { state, saveTimeline, saveSection, flushPending };
 };
