@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { EventInfoSchema, type TimelineEntry } from "@pd26/schemas";
+import { EventInfoSchema, type TimelineEntry } from "@/lib/schemas";
 import { doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 

@@ -13,7 +13,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { afterAll, beforeAll, describe, test } from "bun:test";
 
 const PROJECT_ID = "promdemic2026";
-const RULES = readFileSync(new URL("../../../firestore.rules", import.meta.url), "utf8");
+const RULES = readFileSync(new URL("../firestore.rules", import.meta.url), "utf8");
 const TEST_DOC = { timeline: [{ id: "1", time: "4:20 PM", label: "Meet at Ferry" }] };
 
 let testEnv: RulesTestEnvironment;

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import TimePicker from "@/components/TimePicker";
-import { TimelineEntrySchema, type TimelineEntry } from "@pd26/schemas";
+import { TimelineEntrySchema, type TimelineEntry } from "@/lib/schemas";
 import { Check, Pencil, Plus, Trash2, X } from "lucide-react";
 import { useState } from "react";
 

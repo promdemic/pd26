@@ -1,6 +1,6 @@
 import { db } from "@/lib/firebase";
 import { VOLUNTEER_ROLES, type VolunteerRole } from "@/lib/volunteers";
-import { VolunteerSchema, type Volunteer } from "@pd26/schemas";
+import { VolunteerSchema, type Volunteer } from "@/lib/schemas";
 import { collection, doc, getDocs, serverTimestamp, setDoc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 

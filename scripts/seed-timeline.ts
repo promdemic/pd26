@@ -12,7 +12,7 @@
 import { initializeApp } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
-import { type TimelineEntry } from "@pd26/schemas";
+import { type TimelineEntry } from "@/lib/schemas";
 
 const TIMELINE: TimelineEntry[] = [
   { id: "1", time: "4:20 PM", label: "Meet at Edmonds Ferry Terminal" },

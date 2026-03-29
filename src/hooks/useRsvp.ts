@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { RsvpSchema, type Rsvp } from "@pd26/schemas";
+import { RsvpSchema, type Rsvp } from "@/lib/schemas";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
