@@ -41,9 +41,15 @@ const RSVPForm = () => {
   const uid = authState.status === "authenticated" ? authState.user.uid : null;
   const { state: rsvpState, save } = useRsvp(uid);
 
+  const [expanded, setExpanded] = useState(false);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [error, setError] = useState("");
+
+  const handleSignIn = () => {
+    setExpanded(true);
+    if (authState.status !== "authenticated") signInWithGoogle();
+  };
 
   // Pre-fill form when existing RSVP loads
   useEffect(() => {
@@ -97,8 +103,10 @@ const RSVPForm = () => {
 
   // ── Auth / loading states ─────────────────────────────────────────────────
   const isLoading =
-    authState.status === "loading" ||
-    (authState.status === "authenticated" && rsvpState.status === "loading");
+    expanded &&
+    (authState.status === "loading" ||
+      authState.status === "unauthenticated" ||
+      (authState.status === "authenticated" && rsvpState.status === "loading"));
 
   return (
     <section id="rsvp" className="bg-[#1a2744] px-6 py-20">
@@ -108,10 +116,10 @@ const RSVPForm = () => {
         </h2>
         <p className="mb-8 text-center text-white/70">Secure your spot for Promdemic 2026</p>
 
-        {authState.status === "unauthenticated" ? (
+        {!expanded ? (
           <div className="text-center">
             <Button
-              onClick={signInWithGoogle}
+              onClick={handleSignIn}
               size="lg"
               className="bg-[#c9a84c] text-[#1a2744] hover:bg-[#b8943d]"
             >

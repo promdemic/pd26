@@ -29,3 +29,12 @@ export const RsvpSchema = z.object({
 });
 
 export type Rsvp = z.infer<typeof RsvpSchema>;
+
+export const VolunteerSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  role: z.string().min(1, "Role is required"),
+  email: z.string().email(),
+  updatedAt: z.unknown().optional(),
+});
+
+export type Volunteer = z.infer<typeof VolunteerSchema>;
