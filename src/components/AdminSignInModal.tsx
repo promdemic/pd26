@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -40,6 +41,7 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
           <DialogTitle className="text-[#1a2744]">Admin</DialogTitle>
+          <DialogDescription className="sr-only">Sign in with Google to access admin controls.</DialogDescription>
         </DialogHeader>
 
         {state.status === "loading" && (
