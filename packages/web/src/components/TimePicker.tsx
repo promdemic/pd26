@@ -15,19 +15,19 @@ type Props = {
 const to24h = (display: string): string => {
   const match = display.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
   if (!match) return "";
-  let h = parseInt(match[1]);
-  const period = match[3].toUpperCase();
+  let h = parseInt(match[1]!);
+  const period = match[3]!.toUpperCase();
   if (period === "PM" && h !== 12) h += 12;
   if (period === "AM" && h === 12) h = 0;
-  return `${String(h).padStart(2, "0")}:${match[2]}`;
+  return `${String(h).padStart(2, "0")}:${match[2]!}`;
 };
 
 /** "16:20" → "4:20 PM" */
 const to12h = (native: string): string => {
   const match = native.match(/^(\d{2}):(\d{2})$/);
   if (!match) return "";
-  let h = parseInt(match[1]);
-  const minutes = match[2];
+  let h = parseInt(match[1]!);
+  const minutes = match[2]!;
   const period = h >= 12 ? "PM" : "AM";
   if (h > 12) h -= 12;
   if (h === 0) h = 12;

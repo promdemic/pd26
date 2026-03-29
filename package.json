@@ -8,8 +8,8 @@
   "prettier": {},
   "private": true,
   "scripts": {
-    "build": "bun run build",
-    "lint": "bun run lint",
+    "build": "bun run --workspaces build",
+    "lint": "bun run --workspaces lint",
     "test": "firebase emulators:exec --only firestore,auth 'bun run --filter @pd26/web test'",
     "deploy": "firebase deploy",
     "deploy:web": "firebase deploy --only hosting",
