@@ -12,6 +12,7 @@
     "lint": "eslint",
     "deploy": "firebase deploy",
     "deploy:web": "firebase deploy --only hosting",
+    "deploy:firestore": "firebase deploy --only firestore",
     "emulate": "firebase emulators:start"
   },
   "dependencies": {
