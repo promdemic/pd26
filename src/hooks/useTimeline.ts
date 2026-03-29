@@ -16,6 +16,10 @@ export const useTimeline = (editingRef: React.RefObject<boolean>) => {
     const unsub = onSnapshot(
       doc(db, "eventInfo", "main"),
       (snap) => {
+        if (!snap.exists()) {
+          setState({ status: "success", entries: [] });
+          return;
+        }
         const { data, error, success } = EventInfoSchema.safeParse(snap.data());
         if (!success) {
           console.error("Failed to parse timeline data:", error);
