@@ -12,7 +12,8 @@
     "lint": "bun run lint",
     "test": "firebase emulators:exec --only firestore,auth 'bun run --filter @pd26/web test'",
     "deploy": "firebase deploy",
-    "deploy:web": "firebase deploy --only hosting"
+    "deploy:web": "firebase deploy --only hosting",
+    "emulate": "firebase emulators:start"
   },
   "workspaces": [
     "packages/*"
