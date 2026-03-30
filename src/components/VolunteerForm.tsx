@@ -177,7 +177,7 @@ const VolunteerForm = () => {
                                 className={isFull ? "opacity-40" : ""}
                               >
                                 {role}{" "}
-                                <span className="text-muted-foreground">
+                                <span className="text-[#c9a84c]">
                                   ({available} of {capacity} open)
                                 </span>
                               </SelectItem>
