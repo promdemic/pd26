@@ -1,6 +1,6 @@
 export const VOLUNTEER_ROLES = {
-  "Ferry Chaperones": 2,
-  "Shuttle Drivers": 4,
+  "Friday Shuttle Drivers": 2,
+  "Saturday Shuttle Drivers": 3,
   "Food Service": 4,
   "Breakfast Cooks": 2,
   "Cleanup Crew": 4,
