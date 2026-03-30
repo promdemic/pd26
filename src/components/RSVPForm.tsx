@@ -43,6 +43,7 @@ const RSVPForm = () => {
 
   const [expanded, setExpanded] = useState(false);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
+  const [committed, setCommitted] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [error, setError] = useState("");
 
@@ -196,12 +197,25 @@ const RSVPForm = () => {
                     </Select>
                   </div>
 
+                  <label className="flex cursor-pointer items-start gap-3">
+                    <input
+                      type="checkbox"
+                      checked={committed}
+                      onChange={(e) => setCommitted(e.target.checked)}
+                      className="mt-0.5 h-4 w-4 shrink-0 accent-[#c9a84c]"
+                    />
+                    <span className="text-sm text-white/80">
+                      I commit to being respectful of other guests, the house, and the neighbors.
+                      I understand that if I'm not, I'll need to go home.
+                    </span>
+                  </label>
+
                   {error && <p className="text-sm text-red-400">{error}</p>}
 
                   <Button
                     type="submit"
                     size="lg"
-                    disabled={submitStatus === "submitting" || !form.name || !form.overnight}
+                    disabled={submitStatus === "submitting" || !form.name || !form.overnight || !committed}
                     className="w-full bg-[#c9a84c] text-[#1a2744] hover:bg-[#b8943d] disabled:opacity-50"
                   >
                     {submitStatus === "submitting"
