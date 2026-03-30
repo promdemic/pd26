@@ -5,7 +5,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useAdminReport, type RsvpRow, type VolunteerRow } from "@/hooks/useAdminReport";
+import {
+  useAdminReport,
+  type RsvpRow,
+  type VolunteerRow,
+} from "@/hooks/useAdminReport";
 import { useAuth } from "@/hooks/useAuth";
 import { VOLUNTEER_ROLES, type VolunteerRole } from "@/lib/volunteers";
 import { RefreshCw } from "lucide-react";
@@ -58,7 +62,8 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
 
   const loading = state.status === "loading";
   const rsvps: RsvpRow[] = state.status === "ready" ? state.rsvps : [];
-  const volunteers: VolunteerRow[] = state.status === "ready" ? state.volunteers : [];
+  const volunteers: VolunteerRow[] =
+    state.status === "ready" ? state.volunteers : [];
 
   const studentsOvernight = rsvps.filter((r) => r.overnight).length;
   const parentsOvernight = volunteers.filter((v) => v.overnight).length;
@@ -69,7 +74,9 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
         <DialogHeader className="shrink-0 border-b border-[#d4c8b8] px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <DialogTitle className="text-[#1a2744]">Attendee Report</DialogTitle>
+              <DialogTitle className="text-[#1a2744]">
+                Attendee Report
+              </DialogTitle>
               <DialogDescription className="text-[#1a2744]/50">
                 Promdemic 2026 · May 15–16
               </DialogDescription>
@@ -80,7 +87,9 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
               className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-[#1a2744]/50 hover:bg-[#1a2744]/5 hover:text-[#1a2744] disabled:opacity-40"
               aria-label="Refresh"
             >
-              <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
+              <RefreshCw
+                className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`}
+              />
               Refresh
             </button>
           </div>
@@ -97,7 +106,9 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
 
           {/* Volunteer slots */}
           <div>
-            <h3 className="mb-2 text-sm font-semibold text-[#1a2744]">Volunteer Slots</h3>
+            <h3 className="mb-2 text-sm font-semibold text-[#1a2744]">
+              Volunteer Slots
+            </h3>
             <div className="overflow-x-auto rounded-lg border border-[#d4c8b8]">
               <table className="w-full">
                 <thead className="border-b border-[#d4c8b8] bg-[#f5efe6]">
@@ -109,26 +120,30 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#d4c8b8]">
-                  {(Object.entries(VOLUNTEER_ROLES) as [VolunteerRole, number][]).map(
-                    ([role, capacity]) => {
-                      const filled = volunteers.filter((v) => v.role === role).length;
-                      const open = capacity - filled;
-                      return (
-                        <tr key={role} className="bg-white">
-                          <Td>{role}</Td>
-                          <Td>{filled}</Td>
-                          <Td>{capacity}</Td>
-                          <td className="px-3 py-2 text-sm">
-                            {open <= 0 ? (
-                              <span className="font-medium text-[#2a7f7f]">Full</span>
-                            ) : (
-                              <span className="text-[#c9a84c]">{open} open</span>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    },
-                  )}
+                  {(
+                    Object.entries(VOLUNTEER_ROLES) as [VolunteerRole, number][]
+                  ).map(([role, capacity]) => {
+                    const filled = volunteers.filter(
+                      (v) => v.role === role,
+                    ).length;
+                    const open = capacity - filled;
+                    return (
+                      <tr key={role} className="bg-white">
+                        <Td>{role}</Td>
+                        <Td>{filled}</Td>
+                        <Td>{capacity}</Td>
+                        <td className="px-3 py-2 text-sm">
+                          {open <= 0 ? (
+                            <span className="font-medium text-[#2a7f7f]">
+                              Full
+                            </span>
+                          ) : (
+                            <span className="text-[#c9a84c]">{open} open</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -154,7 +169,10 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                     <TableSkeleton cols={4} />
                   ) : rsvps.length === 0 ? (
                     <tr>
-                      <td colSpan={4} className="px-3 py-4 text-center text-sm text-[#1a2744]/40">
+                      <td
+                        colSpan={4}
+                        className="px-3 py-4 text-center text-sm text-[#1a2744]/40"
+                      >
                         No RSVPs yet
                       </td>
                     </tr>
@@ -193,7 +211,10 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                     <TableSkeleton cols={4} />
                   ) : volunteers.length === 0 ? (
                     <tr>
-                      <td colSpan={4} className="px-3 py-4 text-center text-sm text-[#1a2744]/40">
+                      <td
+                        colSpan={4}
+                        className="px-3 py-4 text-center text-sm text-[#1a2744]/40"
+                      >
                         No volunteers yet
                       </td>
                     </tr>

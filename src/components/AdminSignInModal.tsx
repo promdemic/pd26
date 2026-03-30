@@ -43,7 +43,9 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
           <DialogTitle className="text-[#1a2744]">Admin</DialogTitle>
-          <DialogDescription className="sr-only">Sign in with Google to access admin controls.</DialogDescription>
+          <DialogDescription className="sr-only">
+            Sign in with Google to access admin controls.
+          </DialogDescription>
         </DialogHeader>
 
         {state.status === "loading" && (
@@ -70,7 +72,11 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
               <span className="font-medium">{state.user.email}</span>, but this
               account does not have admin access.
             </p>
-            <Button variant="outline" onClick={handleSignOut} className="w-full">
+            <Button
+              variant="outline"
+              onClick={handleSignOut}
+              className="w-full"
+            >
               Sign out
             </Button>
           </div>
@@ -80,7 +86,9 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
           <div className="space-y-3">
             <p className="text-sm text-[#1a2744]/70">
               Signed in as{" "}
-              <span className="font-medium text-[#1a2744]">{state.user.email}</span>
+              <span className="font-medium text-[#1a2744]">
+                {state.user.email}
+              </span>
             </p>
             <Button
               onClick={() => setReportOpen(true)}
@@ -88,7 +96,11 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
             >
               View Report
             </Button>
-            <Button variant="outline" onClick={handleSignOut} className="w-full">
+            <Button
+              variant="outline"
+              onClick={handleSignOut}
+              className="w-full"
+            >
               Sign out
             </Button>
           </div>

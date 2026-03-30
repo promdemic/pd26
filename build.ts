@@ -9,7 +9,10 @@ const REQUIRED_ENV = [
 
 const missing = REQUIRED_ENV.filter((k) => !process.env[k]);
 if (missing.length > 0) {
-  console.error("Missing required environment variables:\n" + missing.map((k) => `  ${k}`).join("\n"));
+  console.error(
+    "Missing required environment variables:\n" +
+      missing.map((k) => `  ${k}`).join("\n"),
+  );
   process.exit(1);
 }
 

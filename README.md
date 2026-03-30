@@ -113,11 +113,11 @@ Run `bun run seed`. This creates `admin@test.local` in the Auth emulator and wri
 
 Once signed in as an admin, hover over any editable section to reveal the pencil icon:
 
-| Section | What you can edit |
-|---|---|
-| **Schedule** | Add, edit, or delete timeline entries (time + label); changes are live instantly |
-| **Getting There** | Ferry info, shuttle info, venue address |
-| **Food & Fun** | Dinner, dessert, and morning meal descriptions |
-| **Overnight** | Overnight guest instructions |
+| Section           | What you can edit                                                                |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Schedule**      | Add, edit, or delete timeline entries (time + label); changes are live instantly |
+| **Getting There** | Ferry info, shuttle info, venue address                                          |
+| **Food & Fun**    | Dinner, dessert, and morning meal descriptions                                   |
+| **Overnight**     | Overnight guest instructions                                                     |
 
 All edits are saved to Firestore and reflected on the live site immediately.

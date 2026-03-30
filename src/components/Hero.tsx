@@ -43,8 +43,8 @@ const Hero = () => {
         </h1>
 
         <p className="mx-auto max-w-xl text-lg text-white/80">
-          Coastal Elegance on the Bay — an unforgettable overnight dance
-          weekend in Port Gamble, WA.
+          Coastal Elegance on the Bay — an unforgettable overnight dance weekend
+          in Port Gamble, WA.
         </p>
 
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">

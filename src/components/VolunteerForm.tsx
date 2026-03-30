@@ -44,7 +44,9 @@ const VolunteerForm = () => {
   const { state: volunteerState, counts, save } = useVolunteer(uid);
 
   const [expanded, setExpanded] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "submitting" | "success"
+  >("idle");
   const [submitError, setSubmitError] = useState("");
 
   const {
@@ -103,9 +105,12 @@ const VolunteerForm = () => {
       <section id="volunteer" className="px-6 py-20">
         <div className="mx-auto max-w-lg text-center">
           <div className="mb-4 text-5xl">🙌</div>
-          <h2 className="mb-2 text-2xl font-bold text-[#1a2744]">Thank you, {nameValue}!</h2>
+          <h2 className="mb-2 text-2xl font-bold text-[#1a2744]">
+            Thank you, {nameValue}!
+          </h2>
           <p className="mb-6 text-[#5a6a8a]">
-            You're signed up as <strong>{roleValue}</strong>. We'll be in touch with details soon.
+            You're signed up as <strong>{roleValue}</strong>. We'll be in touch
+            with details soon.
           </p>
           <Button
             variant="outline"
@@ -124,7 +129,8 @@ const VolunteerForm = () => {
     expanded &&
     (authState.status === "loading" ||
       authState.status === "unauthenticated" ||
-      (authState.status === "authenticated" && volunteerState.status === "loading"));
+      (authState.status === "authenticated" &&
+        volunteerState.status === "loading"));
 
   return (
     <section id="volunteer" className="px-6 py-20">
@@ -169,7 +175,11 @@ const VolunteerForm = () => {
                       {...register("name")}
                       placeholder="Your name"
                     />
-                    {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
+                    {errors.name && (
+                      <p className="text-xs text-red-500">
+                        {errors.name.message}
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-1.5">
@@ -180,66 +190,89 @@ const VolunteerForm = () => {
                       name="role"
                       control={control}
                       render={({ field }) => (
-                        <Select value={field.value} onValueChange={field.onChange}>
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
                           <SelectTrigger id="vol-role">
                             <SelectValue placeholder="Choose a role…" />
                           </SelectTrigger>
                           <SelectContent>
-                            {(Object.entries(VOLUNTEER_ROLES) as [VolunteerRole, number][]).map(
-                              ([role, capacity]) => {
-                                const filled = counts?.[role] ?? 0;
-                                const isSelf =
-                                  volunteerState.status === "ready" &&
-                                  volunteerState.volunteer?.role === role;
-                                const available = capacity - filled + (isSelf ? 1 : 0);
-                                const isFull = available <= 0;
-                                return (
-                                  <SelectItem
-                                    key={role}
-                                    value={role}
-                                    disabled={isFull}
-                                    className={isFull ? "opacity-40" : ""}
-                                  >
-                                    {role}{" "}
-                                    <span className="text-[#c9a84c]">
-                                      ({available} of {capacity} open)
-                                    </span>
-                                  </SelectItem>
-                                );
-                              },
-                            )}
+                            {(
+                              Object.entries(VOLUNTEER_ROLES) as [
+                                VolunteerRole,
+                                number,
+                              ][]
+                            ).map(([role, capacity]) => {
+                              const filled = counts?.[role] ?? 0;
+                              const isSelf =
+                                volunteerState.status === "ready" &&
+                                volunteerState.volunteer?.role === role;
+                              const available =
+                                capacity - filled + (isSelf ? 1 : 0);
+                              const isFull = available <= 0;
+                              return (
+                                <SelectItem
+                                  key={role}
+                                  value={role}
+                                  disabled={isFull}
+                                  className={isFull ? "opacity-40" : ""}
+                                >
+                                  {role}{" "}
+                                  <span className="text-[#c9a84c]">
+                                    ({available} of {capacity} open)
+                                  </span>
+                                </SelectItem>
+                              );
+                            })}
                           </SelectContent>
                         </Select>
                       )}
                     />
-                    {errors.role && <p className="text-xs text-red-500">{errors.role.message}</p>}
+                    {errors.role && (
+                      <p className="text-xs text-red-500">
+                        {errors.role.message}
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-1.5">
                     <Label htmlFor="vol-overnight">
-                      Staying Overnight? <span className="text-[#c9a84c]">*</span>
+                      Staying Overnight?{" "}
+                      <span className="text-[#c9a84c]">*</span>
                     </Label>
                     <Controller
                       name="overnight"
                       control={control}
                       render={({ field }) => (
-                        <Select value={field.value} onValueChange={field.onChange}>
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
                           <SelectTrigger id="vol-overnight">
                             <SelectValue placeholder="Select…" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="yes">Yes — staying overnight</SelectItem>
-                            <SelectItem value="no">No — leaving after the event</SelectItem>
+                            <SelectItem value="yes">
+                              Yes — staying overnight
+                            </SelectItem>
+                            <SelectItem value="no">
+                              No — leaving after the event
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       )}
                     />
                     {errors.overnight && (
-                      <p className="text-xs text-red-500">{errors.overnight.message}</p>
+                      <p className="text-xs text-red-500">
+                        {errors.overnight.message}
+                      </p>
                     )}
                   </div>
 
-                  {submitError && <p className="text-sm text-red-500">{submitError}</p>}
+                  {submitError && (
+                    <p className="text-sm text-red-500">{submitError}</p>
+                  )}
 
                   <Button
                     type="submit"
@@ -249,7 +282,8 @@ const VolunteerForm = () => {
                   >
                     {submitStatus === "submitting"
                       ? "Saving…"
-                      : volunteerState.status === "ready" && volunteerState.volunteer
+                      : volunteerState.status === "ready" &&
+                          volunteerState.volunteer
                         ? "Update signup"
                         : "Sign up to volunteer"}
                   </Button>

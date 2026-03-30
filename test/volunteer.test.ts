@@ -13,8 +13,15 @@ import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { afterAll, beforeAll, describe, test } from "bun:test";
 
 const PROJECT_ID = "promdemic2026";
-const RULES = readFileSync(new URL("../firestore.rules", import.meta.url), "utf8");
-const TEST_VOLUNTEER = { name: "Grace Hopper", role: "Ferry Chaperones", email: "grace@example.com" };
+const RULES = readFileSync(
+  new URL("../firestore.rules", import.meta.url),
+  "utf8",
+);
+const TEST_VOLUNTEER = {
+  name: "Grace Hopper",
+  role: "Ferry Chaperones",
+  email: "grace@example.com",
+};
 
 let testEnv: RulesTestEnvironment;
 
@@ -30,7 +37,9 @@ afterAll(() => testEnv.cleanup());
 describe("volunteers rules", () => {
   test("authenticated user can write their own volunteer doc", async () => {
     const db = testEnv.authenticatedContext("parent-uid").firestore();
-    await assertSucceeds(setDoc(doc(db, "volunteers", "parent-uid"), TEST_VOLUNTEER));
+    await assertSucceeds(
+      setDoc(doc(db, "volunteers", "parent-uid"), TEST_VOLUNTEER),
+    );
   });
 
   test("authenticated user can read their own volunteer doc", async () => {
@@ -45,6 +54,8 @@ describe("volunteers rules", () => {
 
   test("authenticated user cannot write to another user's volunteer doc", async () => {
     const db = testEnv.authenticatedContext("other-uid").firestore();
-    await assertFails(setDoc(doc(db, "volunteers", "parent-uid"), TEST_VOLUNTEER));
+    await assertFails(
+      setDoc(doc(db, "volunteers", "parent-uid"), TEST_VOLUNTEER),
+    );
   });
 });

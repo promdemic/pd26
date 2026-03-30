@@ -33,10 +33,11 @@ const InfoSectionEditor = ({
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  const { register, control, handleSubmit, reset } = useForm<InfoSectionFormValues>({
-    resolver: zodResolver(InfoSectionFormSchema),
-    defaultValues: { items },
-  });
+  const { register, control, handleSubmit, reset } =
+    useForm<InfoSectionFormValues>({
+      resolver: zodResolver(InfoSectionFormSchema),
+      defaultValues: { items },
+    });
 
   const { fields, append, remove } = useFieldArray({ control, name: "items" });
 
@@ -109,7 +110,13 @@ const InfoSectionEditor = ({
           >
             {saving ? "Saving…" : "Save"}
           </Button>
-          <Button type="button" size="sm" variant="ghost" onClick={cancelEdit} className="h-7">
+          <Button
+            type="button"
+            size="sm"
+            variant="ghost"
+            onClick={cancelEdit}
+            className="h-7"
+          >
             Cancel
           </Button>
         </div>
@@ -133,12 +140,16 @@ const InfoSectionEditor = ({
       {items.map((item, i) =>
         labelStyle === "heading" ? (
           <div key={i}>
-            {item.label && <p className="font-semibold text-[#2a7f7f]">{item.label}</p>}
+            {item.label && (
+              <p className="font-semibold text-[#2a7f7f]">{item.label}</p>
+            )}
             <p>{item.body}</p>
           </div>
         ) : (
           <p key={i}>
-            {item.label && <span className="font-semibold">{item.label}: </span>}
+            {item.label && (
+              <span className="font-semibold">{item.label}: </span>
+            )}
             {item.href ? (
               <a
                 href={item.href}

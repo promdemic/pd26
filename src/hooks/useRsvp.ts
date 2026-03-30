@@ -9,7 +9,9 @@ type State =
   | { status: "ready"; rsvp: Rsvp | null };
 
 export const useRsvp = (uid: string | null) => {
-  const [state, setState] = useState<State>(uid ? { status: "loading" } : { status: "idle" });
+  const [state, setState] = useState<State>(
+    uid ? { status: "loading" } : { status: "idle" },
+  );
 
   useEffect(() => {
     if (!uid) {
@@ -29,7 +31,10 @@ export const useRsvp = (uid: string | null) => {
 
   const save = async (data: Rsvp) => {
     if (!uid) return;
-    await setDoc(doc(db, "rsvps", uid), { ...data, updatedAt: serverTimestamp() });
+    await setDoc(doc(db, "rsvps", uid), {
+      ...data,
+      updatedAt: serverTimestamp(),
+    });
   };
 
   return { state, save };

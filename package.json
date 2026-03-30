@@ -10,6 +10,7 @@
     "start": "NODE_ENV=production bun src/index.ts",
     "test": "firebase emulators:exec 'bun test test/'",
     "lint": "eslint",
+    "fmt": "prettier --write .",
     "deploy": "firebase deploy",
     "deploy:web": "firebase deploy --only hosting",
     "deploy:firestore": "firebase deploy --only firestore",

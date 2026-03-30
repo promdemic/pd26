@@ -36,10 +36,12 @@ bun lint -w     # lint all packages
 ## Project
 
 **Promdemic 2026** — a website for a high-school dance event at Port Gamble Bay. Core features:
+
 - Student RSVP for the event (Friday May 15 – Saturday May 16, 2026)
 - Parent volunteer sign-up with role-based capacity tracking
 
 **Event Details:**
+
 - Date: Friday May 15 – Saturday May 16, 2026
 - Location: 30119 Gamble Pl NE, Kingston, WA 98346 (Port Gamble Bay)
 - Transport: Edmonds Ferry → Kingston Shuttle → Venue
@@ -148,22 +150,22 @@ Roles and slot counts are defined in `src/lib/volunteers.ts` as `VOLUNTEER_ROLES
 
 ## Backend Status & Roadmap
 
-| Phase | Feature | Status |
-|-------|---------|--------|
-| 1 | UI/UX (Hero, EventInfo, RSVPForm, VolunteerForm, Footer) | Complete |
-| 2 | Wire RSVPForm to Firestore | Not started |
-| 3 | Wire VolunteerForm to Firebase callable function | Not started |
+| Phase | Feature                                                  | Status      |
+| ----- | -------------------------------------------------------- | ----------- |
+| 1     | UI/UX (Hero, EventInfo, RSVPForm, VolunteerForm, Footer) | Complete    |
+| 2     | Wire RSVPForm to Firestore                               | Not started |
+| 3     | Wire VolunteerForm to Firebase callable function         | Not started |
 
 Both forms currently simulate a 600 ms network delay on submit and log to the console. Volunteer slot data is mocked in `volunteers.ts`.
 
 ## Key Dependencies
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| react / react-dom | 19 | UI framework |
-| tailwindcss | v4 | Utility-first CSS |
-| bun-plugin-tailwind | 0.1.2 | Tailwind integration for Bun |
-| lucide-react | 0.577.0 | Icon library |
-| clsx | 2.1.1 | Conditional class names |
-| tailwind-merge | 3.5.0 | Merge Tailwind classes without conflicts |
-| class-variance-authority | 0.7.1 | shadcn/ui variant system |
+| Package                  | Version | Purpose                                  |
+| ------------------------ | ------- | ---------------------------------------- |
+| react / react-dom        | 19      | UI framework                             |
+| tailwindcss              | v4      | Utility-first CSS                        |
+| bun-plugin-tailwind      | 0.1.2   | Tailwind integration for Bun             |
+| lucide-react             | 0.577.0 | Icon library                             |
+| clsx                     | 2.1.1   | Conditional class names                  |
+| tailwind-merge           | 3.5.0   | Merge Tailwind classes without conflicts |
+| class-variance-authority | 0.7.1   | shadcn/ui variant system                 |

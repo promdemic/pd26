@@ -13,8 +13,13 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { afterAll, beforeAll, describe, test } from "bun:test";
 
 const PROJECT_ID = "promdemic2026";
-const RULES = readFileSync(new URL("../firestore.rules", import.meta.url), "utf8");
-const TEST_DOC = { timeline: [{ id: "1", time: "4:20 PM", label: "Meet at Ferry" }] };
+const RULES = readFileSync(
+  new URL("../firestore.rules", import.meta.url),
+  "utf8",
+);
+const TEST_DOC = {
+  timeline: [{ id: "1", time: "4:20 PM", label: "Meet at Ferry" }],
+};
 
 let testEnv: RulesTestEnvironment;
 
@@ -26,7 +31,9 @@ beforeAll(async () => {
 
   // Seed admins collection (bypasses rules)
   await testEnv.withSecurityRulesDisabled(async (ctx) => {
-    await setDoc(doc(ctx.firestore(), "admins", "admin-uid"), { email: "admin@test.local" });
+    await setDoc(doc(ctx.firestore(), "admins", "admin-uid"), {
+      email: "admin@test.local",
+    });
     await setDoc(doc(ctx.firestore(), "eventInfo", "main"), TEST_DOC);
   });
 });

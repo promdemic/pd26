@@ -1,5 +1,10 @@
 import { db } from "@/lib/firebase";
-import { RsvpSchema, VolunteerSchema, type Rsvp, type Volunteer } from "@/lib/schemas";
+import {
+  RsvpSchema,
+  VolunteerSchema,
+  type Rsvp,
+  type Volunteer,
+} from "@/lib/schemas";
 import { collection, getDocs } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 

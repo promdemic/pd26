@@ -1,7 +1,14 @@
 import { db } from "@/lib/firebase";
 import { VOLUNTEER_ROLES, type VolunteerRole } from "@/lib/volunteers";
 import { VolunteerSchema, type Volunteer } from "@/lib/schemas";
-import { collection, doc, getDocs, serverTimestamp, setDoc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  serverTimestamp,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 type State =
@@ -10,8 +17,12 @@ type State =
   | { status: "ready"; volunteer: Volunteer | null };
 
 export const useVolunteer = (uid: string | null) => {
-  const [state, setState] = useState<State>(uid ? { status: "loading" } : { status: "idle" });
-  const [counts, setCounts] = useState<Record<VolunteerRole, number> | null>(null);
+  const [state, setState] = useState<State>(
+    uid ? { status: "loading" } : { status: "idle" },
+  );
+  const [counts, setCounts] = useState<Record<VolunteerRole, number> | null>(
+    null,
+  );
 
   const fetchCounts = async () => {
     const snap = await getDocs(collection(db, "volunteers"));
@@ -31,19 +42,27 @@ export const useVolunteer = (uid: string | null) => {
       return;
     }
     setState({ status: "loading" });
-    Promise.all([getDoc(doc(db, "volunteers", uid)), fetchCounts()]).then(([snap]) => {
-      if (!snap.exists()) {
-        setState({ status: "ready", volunteer: null });
-        return;
-      }
-      const parsed = VolunteerSchema.safeParse(snap.data());
-      setState({ status: "ready", volunteer: parsed.success ? parsed.data : null });
-    });
+    Promise.all([getDoc(doc(db, "volunteers", uid)), fetchCounts()]).then(
+      ([snap]) => {
+        if (!snap.exists()) {
+          setState({ status: "ready", volunteer: null });
+          return;
+        }
+        const parsed = VolunteerSchema.safeParse(snap.data());
+        setState({
+          status: "ready",
+          volunteer: parsed.success ? parsed.data : null,
+        });
+      },
+    );
   }, [uid]);
 
   const save = async (data: Volunteer) => {
     if (!uid) return;
-    await setDoc(doc(db, "volunteers", uid), { ...data, updatedAt: serverTimestamp() });
+    await setDoc(doc(db, "volunteers", uid), {
+      ...data,
+      updatedAt: serverTimestamp(),
+    });
     await fetchCounts();
   };
 

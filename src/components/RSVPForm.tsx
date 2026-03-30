@@ -46,7 +46,9 @@ const RSVPForm = () => {
   const { state: rsvpState, save } = useRsvp(uid);
 
   const [expanded, setExpanded] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "submitting" | "success"
+  >("idle");
   const [submitError, setSubmitError] = useState("");
 
   const {
@@ -58,7 +60,13 @@ const RSVPForm = () => {
     formState: { errors },
   } = useForm<RSVPFormValues>({
     resolver: zodResolver(RSVPFormSchema),
-    defaultValues: { name: "", dietary: "", songs: "", overnight: undefined, committed: undefined },
+    defaultValues: {
+      name: "",
+      dietary: "",
+      songs: "",
+      overnight: undefined,
+      committed: undefined,
+    },
   });
 
   const nameValue = watch("name");
@@ -105,8 +113,12 @@ const RSVPForm = () => {
       <section id="rsvp" className="px-6 py-20">
         <div className="mx-auto max-w-lg text-center">
           <div className="mb-4 text-5xl">🎉</div>
-          <h2 className="mb-2 text-2xl font-bold text-[#1a2744]">You're on the list!</h2>
-          <p className="mb-6 text-[#5a6a8a]">We've got your RSVP, {nameValue}. See you on the Bay!</p>
+          <h2 className="mb-2 text-2xl font-bold text-[#1a2744]">
+            You're on the list!
+          </h2>
+          <p className="mb-6 text-[#5a6a8a]">
+            We've got your RSVP, {nameValue}. See you on the Bay!
+          </p>
           <Button
             variant="outline"
             onClick={() => setSubmitStatus("idle")}
@@ -132,7 +144,9 @@ const RSVPForm = () => {
         <h2 className="mb-2 text-center text-3xl font-bold text-white sm:text-4xl">
           Student RSVP
         </h2>
-        <p className="mb-8 text-center text-white/70">Secure your spot for Promdemic 2026</p>
+        <p className="mb-8 text-center text-white/70">
+          Secure your spot for Promdemic 2026
+        </p>
 
         {!expanded ? (
           <div className="text-center">
@@ -148,7 +162,9 @@ const RSVPForm = () => {
           <Card className="border-white/10 bg-white/5">
             <CardHeader>
               <CardTitle className="text-white">
-                {rsvpState.status === "ready" && rsvpState.rsvp ? "Update your RSVP" : "Your Info"}
+                {rsvpState.status === "ready" && rsvpState.rsvp
+                  ? "Update your RSVP"
+                  : "Your Info"}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -166,11 +182,17 @@ const RSVPForm = () => {
                       placeholder="Your name"
                       className="border-white/20 bg-white/10 text-white placeholder:text-white/40"
                     />
-                    {errors.name && <p className="text-xs text-red-400">{errors.name.message}</p>}
+                    {errors.name && (
+                      <p className="text-xs text-red-400">
+                        {errors.name.message}
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label htmlFor="dietary" className="text-white/90">Dietary Needs</Label>
+                    <Label htmlFor="dietary" className="text-white/90">
+                      Dietary Needs
+                    </Label>
                     <Input
                       id="dietary"
                       {...register("dietary")}
@@ -180,7 +202,9 @@ const RSVPForm = () => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label htmlFor="songs" className="text-white/90">Song Requests</Label>
+                    <Label htmlFor="songs" className="text-white/90">
+                      Song Requests
+                    </Label>
                     <Textarea
                       id="songs"
                       {...register("songs")}
@@ -192,25 +216,35 @@ const RSVPForm = () => {
 
                   <div className="space-y-1.5">
                     <Label htmlFor="overnight" className="text-white/90">
-                      Staying Overnight? <span className="text-[#c9a84c]">*</span>
+                      Staying Overnight?{" "}
+                      <span className="text-[#c9a84c]">*</span>
                     </Label>
                     <Controller
                       name="overnight"
                       control={control}
                       render={({ field }) => (
-                        <Select value={field.value} onValueChange={field.onChange}>
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
                           <SelectTrigger className="border-white/20 bg-white/10 text-white">
                             <SelectValue placeholder="Select…" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="yes">Yes — staying overnight</SelectItem>
-                            <SelectItem value="no">No — picking up at 11 PM</SelectItem>
+                            <SelectItem value="yes">
+                              Yes — staying overnight
+                            </SelectItem>
+                            <SelectItem value="no">
+                              No — picking up at 11 PM
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       )}
                     />
                     {errors.overnight && (
-                      <p className="text-xs text-red-400">{errors.overnight.message}</p>
+                      <p className="text-xs text-red-400">
+                        {errors.overnight.message}
+                      </p>
                     )}
                   </div>
 
@@ -222,21 +256,28 @@ const RSVPForm = () => {
                         <input
                           type="checkbox"
                           checked={field.value === true}
-                          onChange={(e) => field.onChange(e.target.checked ? true : undefined)}
+                          onChange={(e) =>
+                            field.onChange(e.target.checked ? true : undefined)
+                          }
                           className="mt-0.5 h-4 w-4 shrink-0 accent-[#c9a84c]"
                         />
                         <span className="text-sm text-white/80">
-                          I commit to being respectful of other guests, the house, and the
-                          neighbors. I understand that if I'm not, I'll need to go home.
+                          I commit to being respectful of other guests, the
+                          house, and the neighbors. I understand that if I'm
+                          not, I'll need to go home.
                         </span>
                       </label>
                     )}
                   />
                   {errors.committed && (
-                    <p className="text-xs text-red-400">{errors.committed.message}</p>
+                    <p className="text-xs text-red-400">
+                      {errors.committed.message}
+                    </p>
                   )}
 
-                  {submitError && <p className="text-sm text-red-400">{submitError}</p>}
+                  {submitError && (
+                    <p className="text-sm text-red-400">{submitError}</p>
+                  )}
 
                   <Button
                     type="submit"
