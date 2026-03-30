@@ -44,6 +44,7 @@ export const VolunteerSchema = z.object({
   name: z.string().min(1, "Name is required"),
   role: z.string().min(1, "Role is required"),
   email: z.string().email(),
+  overnight: z.boolean(),
   updatedAt: z.unknown().optional(),
 });
 

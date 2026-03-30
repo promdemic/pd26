@@ -17,11 +17,12 @@ import { useEffect, useState } from "react";
 type FormState = {
   name: string;
   role: string;
+  overnight: string; // "yes" | "no" | ""
 };
 
-const EMPTY_FORM: FormState = { name: "", role: "" };
+const EMPTY_FORM: FormState = { name: "", role: "", overnight: "" };
 
-const SKELETON_WIDTHS = ["w-full", "w-full"];
+const SKELETON_WIDTHS = ["w-full", "w-full", "w-32"];
 
 const FormSkeleton = () => (
   <div className="space-y-5">
@@ -52,8 +53,8 @@ const VolunteerForm = () => {
   // Pre-fill form when existing volunteer signup loads
   useEffect(() => {
     if (volunteerState.status === "ready" && volunteerState.volunteer) {
-      const { name, role } = volunteerState.volunteer;
-      setForm({ name: name ?? "", role: role ?? "" });
+      const { name, role, overnight } = volunteerState.volunteer;
+      setForm({ name: name ?? "", role: role ?? "", overnight: overnight ? "yes" : "no" });
     }
   }, [volunteerState.status]);
 
@@ -63,7 +64,7 @@ const VolunteerForm = () => {
     setError("");
     setSubmitStatus("submitting");
     try {
-      await save({ name: form.name, role: form.role, email: authState.user.email ?? "" });
+      await save({ name: form.name, role: form.role, email: authState.user.email ?? "", overnight: form.overnight === "yes" });
       setSubmitStatus("success");
     } catch {
       setError("Something went wrong — please try again.");
@@ -188,12 +189,30 @@ const VolunteerForm = () => {
                     </Select>
                   </div>
 
+                  <div className="space-y-1.5">
+                    <Label htmlFor="vol-overnight">
+                      Staying Overnight? <span className="text-[#c9a84c]">*</span>
+                    </Label>
+                    <Select
+                      value={form.overnight}
+                      onValueChange={(v) => setForm((prev) => ({ ...prev, overnight: v }))}
+                    >
+                      <SelectTrigger id="vol-overnight">
+                        <SelectValue placeholder="Select…" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="yes">Yes — staying overnight</SelectItem>
+                        <SelectItem value="no">No — leaving after the event</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
                   {error && <p className="text-sm text-red-500">{error}</p>}
 
                   <Button
                     type="submit"
                     size="lg"
-                    disabled={submitStatus === "submitting" || !form.name || !form.role}
+                    disabled={submitStatus === "submitting" || !form.name || !form.role || !form.overnight}
                     className="w-full bg-[#c9a84c] text-[#1a2744] hover:bg-[#b8943d] disabled:opacity-50"
                   >
                     {submitStatus === "submitting"
