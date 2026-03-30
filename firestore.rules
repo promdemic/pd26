@@ -16,9 +16,12 @@ service cloud.firestore {
       allow write: if false;
     }
 
-    // Each student can read and write only their own RSVP
+    // Each student can read and write only their own RSVP; admins can read all
     match /rsvps/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read: if request.auth != null
+                  && (request.auth.uid == uid
+                      || exists(/databases/$(database)/documents/admins/$(request.auth.uid)));
+      allow write: if request.auth != null && request.auth.uid == uid;
     }
 
     // Authenticated users can read all volunteer docs (for slot counting)

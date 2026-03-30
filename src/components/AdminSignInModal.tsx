@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import AdminReportModal from "@/components/AdminReportModal";
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
 
@@ -18,6 +19,7 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
   const { state, signInWithGoogle, signOut } = useAuth();
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [reportOpen, setReportOpen] = useState(false);
 
   const handleSignIn = async () => {
     setError("");
@@ -80,11 +82,19 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
               Signed in as{" "}
               <span className="font-medium text-[#1a2744]">{state.user.email}</span>
             </p>
+            <Button
+              onClick={() => setReportOpen(true)}
+              className="w-full bg-[#c9a84c] text-[#1a2744] hover:bg-[#b8943d]"
+            >
+              View Report
+            </Button>
             <Button variant="outline" onClick={handleSignOut} className="w-full">
               Sign out
             </Button>
           </div>
         )}
+
+        <AdminReportModal open={reportOpen} onOpenChange={setReportOpen} />
       </DialogContent>
     </Dialog>
   );
