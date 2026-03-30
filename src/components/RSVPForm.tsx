@@ -12,16 +12,20 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/hooks/useAuth";
 import { useRsvp } from "@/hooks/useRsvp";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
 
-type FormState = {
-  name: string;
-  dietary: string;
-  songs: string;
-  overnight: string; // "yes" | "no" | ""
-};
+const RSVPFormSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  dietary: z.string().optional(),
+  songs: z.string().optional(),
+  overnight: z.enum(["yes", "no"], { error: "Please select an option" }),
+  committed: z.literal(true, { error: "You must agree before submitting" }),
+});
 
-const EMPTY_FORM: FormState = { name: "", dietary: "", songs: "", overnight: "" };
+type RSVPFormValues = z.infer<typeof RSVPFormSchema>;
 
 const SKELETON_WIDTHS = ["w-full", "w-full", "w-full", "w-32"];
 
@@ -42,10 +46,22 @@ const RSVPForm = () => {
   const { state: rsvpState, save } = useRsvp(uid);
 
   const [expanded, setExpanded] = useState(false);
-  const [form, setForm] = useState<FormState>(EMPTY_FORM);
-  const [committed, setCommitted] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting" | "success">("idle");
-  const [error, setError] = useState("");
+  const [submitError, setSubmitError] = useState("");
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm<RSVPFormValues>({
+    resolver: zodResolver(RSVPFormSchema),
+    defaultValues: { name: "", dietary: "", songs: "", overnight: undefined, committed: undefined },
+  });
+
+  const nameValue = watch("name");
 
   const handleSignIn = () => {
     setExpanded(true);
@@ -56,28 +72,29 @@ const RSVPForm = () => {
   useEffect(() => {
     if (rsvpState.status === "ready" && rsvpState.rsvp) {
       const { name, dietary, songs, overnight } = rsvpState.rsvp;
-      setForm({
+      reset({
         name: name ?? "",
         dietary: dietary ?? "",
         songs: songs ?? "",
         overnight: overnight ? "yes" : "no",
+        committed: true,
       });
     }
-  }, [rsvpState.status]);
+  }, [rsvpState.status, reset]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+  const onSubmit = async (data: RSVPFormValues) => {
+    setSubmitError("");
     setSubmitStatus("submitting");
     try {
-      await save({ name: form.name, dietary: form.dietary, songs: form.songs, overnight: form.overnight === "yes" });
+      await save({
+        name: data.name,
+        dietary: data.dietary,
+        songs: data.songs,
+        overnight: data.overnight === "yes",
+      });
       setSubmitStatus("success");
     } catch {
-      setError("Something went wrong — please try again.");
+      setSubmitError("Something went wrong — please try again.");
       setSubmitStatus("idle");
     }
   };
@@ -89,7 +106,7 @@ const RSVPForm = () => {
         <div className="mx-auto max-w-lg text-center">
           <div className="mb-4 text-5xl">🎉</div>
           <h2 className="mb-2 text-2xl font-bold text-[#1a2744]">You're on the list!</h2>
-          <p className="mb-6 text-[#5a6a8a]">We've got your RSVP, {form.name}. See you on the Bay!</p>
+          <p className="mb-6 text-[#5a6a8a]">We've got your RSVP, {nameValue}. See you on the Bay!</p>
           <Button
             variant="outline"
             onClick={() => setSubmitStatus("idle")}
@@ -138,29 +155,25 @@ const RSVPForm = () => {
               {isLoading ? (
                 <FormSkeleton />
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   <div className="space-y-1.5">
                     <Label htmlFor="name" className="text-white/90">
                       Full Name <span className="text-[#c9a84c]">*</span>
                     </Label>
                     <Input
                       id="name"
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      required
+                      {...register("name")}
                       placeholder="Your name"
                       className="border-white/20 bg-white/10 text-white placeholder:text-white/40"
                     />
+                    {errors.name && <p className="text-xs text-red-400">{errors.name.message}</p>}
                   </div>
 
                   <div className="space-y-1.5">
                     <Label htmlFor="dietary" className="text-white/90">Dietary Needs</Label>
                     <Input
                       id="dietary"
-                      name="dietary"
-                      value={form.dietary}
-                      onChange={handleChange}
+                      {...register("dietary")}
                       placeholder="e.g. vegetarian, nut allergy…"
                       className="border-white/20 bg-white/10 text-white placeholder:text-white/40"
                     />
@@ -170,9 +183,7 @@ const RSVPForm = () => {
                     <Label htmlFor="songs" className="text-white/90">Song Requests</Label>
                     <Textarea
                       id="songs"
-                      name="songs"
-                      value={form.songs}
-                      onChange={handleChange}
+                      {...register("songs")}
                       placeholder="Any songs you'd love to hear?"
                       rows={3}
                       className="border-white/20 bg-white/10 text-white placeholder:text-white/40"
@@ -183,39 +194,54 @@ const RSVPForm = () => {
                     <Label htmlFor="overnight" className="text-white/90">
                       Staying Overnight? <span className="text-[#c9a84c]">*</span>
                     </Label>
-                    <Select
-                      value={form.overnight}
-                      onValueChange={(v) => setForm((prev) => ({ ...prev, overnight: v }))}
-                    >
-                      <SelectTrigger className="border-white/20 bg-white/10 text-white">
-                        <SelectValue placeholder="Select…" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="yes">Yes — staying overnight</SelectItem>
-                        <SelectItem value="no">No — picking up at 11 PM</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Controller
+                      name="overnight"
+                      control={control}
+                      render={({ field }) => (
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger className="border-white/20 bg-white/10 text-white">
+                            <SelectValue placeholder="Select…" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="yes">Yes — staying overnight</SelectItem>
+                            <SelectItem value="no">No — picking up at 11 PM</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                    {errors.overnight && (
+                      <p className="text-xs text-red-400">{errors.overnight.message}</p>
+                    )}
                   </div>
 
-                  <label className="flex cursor-pointer items-start gap-3">
-                    <input
-                      type="checkbox"
-                      checked={committed}
-                      onChange={(e) => setCommitted(e.target.checked)}
-                      className="mt-0.5 h-4 w-4 shrink-0 accent-[#c9a84c]"
-                    />
-                    <span className="text-sm text-white/80">
-                      I commit to being respectful of other guests, the house, and the neighbors.
-                      I understand that if I'm not, I'll need to go home.
-                    </span>
-                  </label>
+                  <Controller
+                    name="committed"
+                    control={control}
+                    render={({ field }) => (
+                      <label className="flex cursor-pointer items-start gap-3">
+                        <input
+                          type="checkbox"
+                          checked={field.value === true}
+                          onChange={(e) => field.onChange(e.target.checked ? true : undefined)}
+                          className="mt-0.5 h-4 w-4 shrink-0 accent-[#c9a84c]"
+                        />
+                        <span className="text-sm text-white/80">
+                          I commit to being respectful of other guests, the house, and the
+                          neighbors. I understand that if I'm not, I'll need to go home.
+                        </span>
+                      </label>
+                    )}
+                  />
+                  {errors.committed && (
+                    <p className="text-xs text-red-400">{errors.committed.message}</p>
+                  )}
 
-                  {error && <p className="text-sm text-red-400">{error}</p>}
+                  {submitError && <p className="text-sm text-red-400">{submitError}</p>}
 
                   <Button
                     type="submit"
                     size="lg"
-                    disabled={submitStatus === "submitting" || !form.name || !form.overnight || !committed}
+                    disabled={submitStatus === "submitting"}
                     className="w-full bg-[#c9a84c] text-[#1a2744] hover:bg-[#b8943d] disabled:opacity-50"
                   >
                     {submitStatus === "submitting"

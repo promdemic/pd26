@@ -1,9 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { type InfoItem } from "@/lib/schemas";
+import { InfoItemSchema, type InfoItem } from "@/lib/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { z } from "zod";
+
+const InfoSectionFormSchema = z.object({
+  items: z.array(InfoItemSchema),
+});
+
+type InfoSectionFormValues = z.infer<typeof InfoSectionFormSchema>;
 
 type Props = {
   items: InfoItem[];
@@ -22,11 +31,17 @@ const InfoSectionEditor = ({
   onEditingChange,
 }: Props) => {
   const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState<InfoItem[]>([]);
   const [saving, setSaving] = useState(false);
 
+  const { register, control, handleSubmit, reset } = useForm<InfoSectionFormValues>({
+    resolver: zodResolver(InfoSectionFormSchema),
+    defaultValues: { items },
+  });
+
+  const { fields, append, remove } = useFieldArray({ control, name: "items" });
+
   const startEdit = () => {
-    setDraft(items.map((item) => ({ ...item })));
+    reset({ items: items.map((item) => ({ ...item })) });
     setEditing(true);
     onEditingChange(true);
   };
@@ -36,32 +51,29 @@ const InfoSectionEditor = ({
     onEditingChange(false);
   };
 
-  const handleSave = async () => {
+  const onSubmit = async (data: InfoSectionFormValues) => {
     setSaving(true);
-    await onSave(draft.filter((item) => item.body.trim()));
+    await onSave(data.items.filter((item) => item.body.trim()));
     setSaving(false);
     setEditing(false);
     onEditingChange(false);
   };
 
-  const updateItem = (i: number, patch: Partial<InfoItem>) =>
-    setDraft((prev) => prev.map((it, j) => (j === i ? { ...it, ...patch } : it)));
-
   // ── Edit mode ─────────────────────────────────────────────────────────────
   if (editing) {
     return (
-      <div className="space-y-3">
-        {draft.map((item, i) => (
-          <div key={i} className="space-y-1">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+        {fields.map((field, i) => (
+          <div key={field.id} className="space-y-1">
             <div className="flex items-center gap-2">
               <Input
-                value={item.label}
-                onChange={(e) => updateItem(i, { label: e.target.value })}
+                {...register(`items.${i}.label`)}
                 placeholder="Label (optional)"
                 className="h-7 w-32 shrink-0 text-xs"
               />
               <button
-                onClick={() => setDraft((prev) => prev.filter((_, j) => j !== i))}
+                type="button"
+                onClick={() => remove(i)}
                 className="text-[#1a2744]/40 hover:text-red-500"
                 aria-label="Remove item"
               >
@@ -69,8 +81,7 @@ const InfoSectionEditor = ({
               </button>
             </div>
             <Textarea
-              value={item.body}
-              onChange={(e) => updateItem(i, { body: e.target.value })}
+              {...register(`items.${i}.body`)}
               placeholder="Content"
               rows={2}
               className="text-xs"
@@ -79,9 +90,10 @@ const InfoSectionEditor = ({
         ))}
 
         <Button
+          type="button"
           variant="ghost"
           size="sm"
-          onClick={() => setDraft((prev) => [...prev, { label: "", body: "" }])}
+          onClick={() => append({ label: "", body: "" })}
           className="h-7 gap-1 text-xs text-[#1a2744]/50 hover:text-[#1a2744]"
         >
           <Plus className="h-3.5 w-3.5" />
@@ -90,18 +102,18 @@ const InfoSectionEditor = ({
 
         <div className="flex gap-2">
           <Button
+            type="submit"
             size="sm"
-            onClick={handleSave}
             disabled={saving}
             className="h-7 bg-[#2a7f7f] text-white hover:bg-[#2a7f7f]/80 disabled:opacity-50"
           >
             {saving ? "Saving…" : "Save"}
           </Button>
-          <Button size="sm" variant="ghost" onClick={cancelEdit} className="h-7">
+          <Button type="button" size="sm" variant="ghost" onClick={cancelEdit} className="h-7">
             Cancel
           </Button>
         </div>
-      </div>
+      </form>
     );
   }
 
