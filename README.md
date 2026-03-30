@@ -19,7 +19,7 @@ A website for Promdemic — a dance for local teenagers held at a house on Port 
 
 ## Project Structure
 
-```
+```sh
 src/
   index.ts          # Bun.serve() server
   index.html        # HTML entry point
@@ -43,7 +43,7 @@ firestore.rules     # Firestore security rules
 
 Copy `.env.example` to `.env.local` and fill in values from the [Firebase Console](https://console.firebase.google.com) → Project Settings → Your apps → SDK config.
 
-```
+```sh
 BUN_PUBLIC_FIREBASE_API_KEY=
 BUN_PUBLIC_FIREBASE_AUTH_DOMAIN=
 BUN_PUBLIC_FIREBASE_PROJECT_ID=

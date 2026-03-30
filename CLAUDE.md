@@ -60,7 +60,7 @@ Bun monorepo with packages in `packages/*`. The active package is `packages/web/
 
 ### Source Layout
 
-```
+```sh
 packages/web/src/
 ├── index.ts             # Bun.serve() server
 ├── index.html           # HTML shell

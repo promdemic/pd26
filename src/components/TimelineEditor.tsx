@@ -16,20 +16,34 @@ type RowState =
   | { type: "view" }
   | { type: "edit"; time: string; label: string; error?: string };
 
-const TimelineEditor = ({ entries, isAdmin, onSave, onEditingChange }: Props) => {
+const TimelineEditor = ({
+  entries,
+  isAdmin,
+  onSave,
+  onEditingChange,
+}: Props) => {
   const [rows, setRows] = useState<Map<string, RowState>>(new Map());
   const [saving, setSaving] = useState(false);
 
-  const isEditing = (id: string) => rows.get(id)?.type === "edit";
   const anyEditing = [...rows.values()].some((r) => r.type === "edit");
 
   const startEdit = (entry: TimelineEntry) => {
-    setRows((prev) => new Map(prev).set(entry.id, { type: "edit", time: entry.time, label: entry.label }));
+    setRows((prev) =>
+      new Map(prev).set(entry.id, {
+        type: "edit",
+        time: entry.time,
+        label: entry.label,
+      }),
+    );
     onEditingChange(true);
   };
 
   const cancelEdit = (id: string) => {
-    setRows((prev) => { const m = new Map(prev); m.delete(id); return m; });
+    setRows((prev) => {
+      const m = new Map(prev);
+      m.delete(id);
+      return m;
+    });
     onEditingChange(false);
   };
 
@@ -37,7 +51,11 @@ const TimelineEditor = ({ entries, isAdmin, onSave, onEditingChange }: Props) =>
     const row = rows.get(id);
     if (row?.type !== "edit") return;
 
-    const validation = TimelineEntrySchema.safeParse({ id, time: row.time, label: row.label });
+    const validation = TimelineEntrySchema.safeParse({
+      id,
+      time: row.time,
+      label: row.label,
+    });
     if (!validation.success) {
       const error = validation.error.issues[0]?.message ?? "Invalid entry";
       setRows((prev) => new Map(prev).set(id, { ...row, error }));
@@ -45,12 +63,16 @@ const TimelineEditor = ({ entries, isAdmin, onSave, onEditingChange }: Props) =>
     }
 
     const updated = entries.map((e) =>
-      e.id === id ? { ...e, time: row.time, label: row.label } : e
+      e.id === id ? { ...e, time: row.time, label: row.label } : e,
     );
     setSaving(true);
     await onSave(updated);
     setSaving(false);
-    setRows((prev) => { const m = new Map(prev); m.delete(id); return m; });
+    setRows((prev) => {
+      const m = new Map(prev);
+      m.delete(id);
+      return m;
+    });
     onEditingChange(false);
   };
 
@@ -67,7 +89,9 @@ const TimelineEditor = ({ entries, isAdmin, onSave, onEditingChange }: Props) =>
     // Optimistically append so the new row has something to edit
     const updated = [...entries, newEntry];
     onSave(updated).then(() => {
-      setRows((prev) => new Map(prev).set(id, { type: "edit", time: "", label: "" }));
+      setRows((prev) =>
+        new Map(prev).set(id, { type: "edit", time: "", label: "" }),
+      );
       onEditingChange(true);
     });
   };
@@ -81,45 +105,53 @@ const TimelineEditor = ({ entries, isAdmin, onSave, onEditingChange }: Props) =>
             return (
               <li key={entry.id} className="flex flex-col gap-1">
                 <div className="flex items-center gap-2">
-                <TimePicker
-                  value={row.time}
-                  onChange={(time) =>
-                    setRows((prev) =>
-                      new Map(prev).set(entry.id, { ...row, time, error: undefined })
-                    )
-                  }
-                  className="h-7 w-24 shrink-0 rounded-md border border-input bg-background px-2 text-right text-xs font-semibold text-[#c9a84c] focus:outline-none focus:ring-1 focus:ring-ring"
-                  autoFocus
-                />
-                <Input
-                  className="h-7 min-w-0 flex-1 text-xs text-[#1a2744]"
-                  value={row.label}
-                  onChange={(e) =>
-                    setRows((prev) =>
-                      new Map(prev).set(entry.id, { ...row, label: e.target.value, error: undefined })
-                    )
-                  }
-                  placeholder="Event"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") commitEdit(entry.id);
-                    if (e.key === "Escape") cancelEdit(entry.id);
-                  }}
-                />
-                <button
-                  onClick={() => commitEdit(entry.id)}
-                  disabled={saving}
-                  className="shrink-0 text-[#2a7f7f] hover:text-[#2a7f7f]/70 disabled:opacity-40"
-                  aria-label="Save"
-                >
-                  <Check className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => cancelEdit(entry.id)}
-                  className="shrink-0 text-[#1a2744]/40 hover:text-[#1a2744]/70"
-                  aria-label="Cancel"
-                >
-                  <X className="h-4 w-4" />
-                </button>
+                  <TimePicker
+                    value={row.time}
+                    onChange={(time) =>
+                      setRows((prev) =>
+                        new Map(prev).set(entry.id, {
+                          ...row,
+                          time,
+                          error: undefined,
+                        }),
+                      )
+                    }
+                    className="h-7 w-24 shrink-0 rounded-md border border-input bg-background px-2 text-right text-xs font-semibold text-[#c9a84c] focus:outline-none focus:ring-1 focus:ring-ring"
+                    autoFocus
+                  />
+                  <Input
+                    className="h-7 min-w-0 flex-1 text-xs text-[#1a2744]"
+                    value={row.label}
+                    onChange={(e) =>
+                      setRows((prev) =>
+                        new Map(prev).set(entry.id, {
+                          ...row,
+                          label: e.target.value,
+                          error: undefined,
+                        }),
+                      )
+                    }
+                    placeholder="Event"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") commitEdit(entry.id);
+                      if (e.key === "Escape") cancelEdit(entry.id);
+                    }}
+                  />
+                  <button
+                    onClick={() => commitEdit(entry.id)}
+                    disabled={saving}
+                    className="shrink-0 text-[#2a7f7f] hover:text-[#2a7f7f]/70 disabled:opacity-40"
+                    aria-label="Save"
+                  >
+                    <Check className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => cancelEdit(entry.id)}
+                    className="shrink-0 text-[#1a2744]/40 hover:text-[#1a2744]/70"
+                    aria-label="Cancel"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
                 </div>
                 {row.error && (
                   <p className="pl-1 text-xs text-red-500">{row.error}</p>
@@ -133,7 +165,9 @@ const TimelineEditor = ({ entries, isAdmin, onSave, onEditingChange }: Props) =>
               <span className="w-20 shrink-0 text-right text-sm font-semibold text-[#c9a84c]">
                 {entry.time}
               </span>
-              <span className="flex-1 text-sm text-[#1a2744]">{entry.label}</span>
+              <span className="flex-1 text-sm text-[#1a2744]">
+                {entry.label}
+              </span>
               {isAdmin && (
                 <span className="flex shrink-0 gap-1 opacity-0 transition-opacity group-hover:opacity-100">
                   <button
