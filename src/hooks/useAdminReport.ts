@@ -44,7 +44,8 @@ export const useAdminReport = (isAdmin: boolean) => {
       volunteers.sort((a, b) => a.name.localeCompare(b.name));
 
       setState({ status: "ready", rsvps, volunteers });
-    } catch {
+    } catch (err) {
+      console.error("Failed to load admin report:", err);
       setState({ status: "error" });
     }
   }, []);

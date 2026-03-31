@@ -61,6 +61,7 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
   const { state, refresh } = useAdminReport(isAdmin);
 
   const loading = state.status === "loading";
+  const error = state.status === "error";
   const rsvps: RsvpRow[] = state.status === "ready" ? state.rsvps : [];
   const volunteers: VolunteerRow[] =
     state.status === "ready" ? state.volunteers : [];
@@ -96,6 +97,18 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
         </DialogHeader>
 
         <div className="overflow-y-auto px-6 py-5 space-y-8">
+          {error && (
+            <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              Failed to load report. Check your connection and{" "}
+              <button
+                onClick={refresh}
+                className="underline hover:no-underline"
+              >
+                try again
+              </button>
+              .
+            </div>
+          )}
           {/* Summary stats */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <StatCard label="Total RSVPs" value={rsvps.length} />
