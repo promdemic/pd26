@@ -139,14 +139,14 @@ const InfoSectionEditor = ({
 
       {items.map((item, i) =>
         labelStyle === "heading" ? (
-          <div key={i}>
+          <div key={`${item.label}-${i}`}>
             {item.label && (
               <p className="font-semibold text-teal">{item.label}</p>
             )}
             <p>{item.body}</p>
           </div>
         ) : (
-          <p key={i}>
+          <p key={`${item.label}-${i}`}>
             {item.label && (
               <span className="font-semibold">{item.label}: </span>
             )}
