@@ -19,7 +19,7 @@ const RULES = readFileSync(
 );
 const TEST_VOLUNTEER = {
   name: "Grace Hopper",
-  role: "Ferry Chaperones",
+  role: "Friday Shuttle Drivers",
   email: "grace@example.com",
 };
 
