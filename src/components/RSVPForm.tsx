@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import FormSkeleton from "@/components/FormSkeleton";
 import { useAuth } from "@/hooks/useAuth";
 import { useRsvp } from "@/hooks/useRsvp";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,18 +28,7 @@ const RSVPFormSchema = z.object({
 
 type RSVPFormValues = z.infer<typeof RSVPFormSchema>;
 
-const SKELETON_WIDTHS = ["w-full", "w-full", "w-full", "w-32"];
-
-const FormSkeleton = () => (
-  <div className="space-y-5">
-    {SKELETON_WIDTHS.map((w, i) => (
-      <div key={i} className="space-y-1.5">
-        <div className="h-4 w-24 animate-pulse rounded bg-white/20" />
-        <div className={`h-10 ${w} animate-pulse rounded bg-white/10`} />
-      </div>
-    ))}
-  </div>
-);
+const SKELETON_ROWS = ["w-full", "w-full", "w-full", "w-32"];
 
 const RSVPForm = () => {
   const { state: authState, signInWithGoogle } = useAuth();
@@ -169,7 +159,7 @@ const RSVPForm = () => {
             </CardHeader>
             <CardContent>
               {isLoading ? (
-                <FormSkeleton />
+                <FormSkeleton rows={SKELETON_ROWS} variant="dark" />
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   <div className="space-y-1.5">

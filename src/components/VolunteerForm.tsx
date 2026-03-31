@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import FormSkeleton from "@/components/FormSkeleton";
 import { useAuth } from "@/hooks/useAuth";
 import { useVolunteer } from "@/hooks/useVolunteer";
 import { VOLUNTEER_ROLES, type VolunteerRole } from "@/lib/volunteers";
@@ -25,18 +26,7 @@ const VolunteerFormSchema = z.object({
 
 type VolunteerFormValues = z.infer<typeof VolunteerFormSchema>;
 
-const SKELETON_WIDTHS = ["w-full", "w-full", "w-32"];
-
-const FormSkeleton = () => (
-  <div className="space-y-5">
-    {SKELETON_WIDTHS.map((w, i) => (
-      <div key={i} className="space-y-1.5">
-        <div className="h-4 w-24 animate-pulse rounded bg-gray-200" />
-        <div className={`h-10 ${w} animate-pulse rounded bg-gray-100`} />
-      </div>
-    ))}
-  </div>
-);
+const SKELETON_ROWS = ["w-full", "w-full", "w-32"];
 
 const VolunteerForm = () => {
   const { state: authState, signInWithGoogle } = useAuth();
@@ -163,7 +153,7 @@ const VolunteerForm = () => {
             </CardHeader>
             <CardContent>
               {isLoading ? (
-                <FormSkeleton />
+                <FormSkeleton rows={SKELETON_ROWS} variant="light" />
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   <div className="space-y-1.5">
