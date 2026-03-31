@@ -24,6 +24,10 @@ export const useVolunteer = (uid: string | null) => {
     null,
   );
 
+  // Reads every volunteer doc to tally slot counts. Fine at this scale (~15 parents).
+  // NOTE: capacity enforcement is client-side only — concurrent signups can exceed slot
+  // limits. Acceptable for this event; fix with a Firestore transaction or Cloud Function
+  // if it ever becomes a problem.
   const fetchCounts = async () => {
     const snap = await getDocs(collection(db, "volunteers"));
     const c = Object.fromEntries(
