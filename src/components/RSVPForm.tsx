@@ -122,6 +122,8 @@ const RSVPForm = () => {
   }
 
   // ── Auth / loading states ─────────────────────────────────────────────────
+  // "unauthenticated" is treated as loading here because expanded becomes true
+  // immediately on click, before the Google sign-in popup resolves.
   const isLoading =
     expanded &&
     (authState.status === "loading" ||
