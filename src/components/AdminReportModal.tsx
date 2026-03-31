@@ -75,9 +75,7 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
         <DialogHeader className="shrink-0 border-b border-border px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <DialogTitle className="text-navy">
-                Attendee Report
-              </DialogTitle>
+              <DialogTitle className="text-navy">Attendee Report</DialogTitle>
               <DialogDescription className="text-navy/50">
                 Promdemic 2026 · May 15–16
               </DialogDescription>
@@ -147,9 +145,7 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                         <Td>{capacity}</Td>
                         <td className="px-3 py-2 text-sm">
                           {open <= 0 ? (
-                            <span className="font-medium text-teal">
-                              Full
-                            </span>
+                            <span className="font-medium text-teal">Full</span>
                           ) : (
                             <span className="text-gold">{open} open</span>
                           )}

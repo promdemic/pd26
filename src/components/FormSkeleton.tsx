@@ -5,10 +5,8 @@ type Props = {
 
 // "dark" = navy card background (RSVPForm), "light" = sand card background (VolunteerForm)
 const FormSkeleton = ({ rows, variant }: Props) => {
-  const labelCls =
-    variant === "dark" ? "bg-white/20" : "bg-gray-200";
-  const inputCls =
-    variant === "dark" ? "bg-white/10" : "bg-gray-100";
+  const labelCls = variant === "dark" ? "bg-white/20" : "bg-gray-200";
+  const inputCls = variant === "dark" ? "bg-white/10" : "bg-gray-100";
 
   return (
     <div className="space-y-5">

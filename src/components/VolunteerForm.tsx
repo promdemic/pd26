@@ -230,8 +230,7 @@ const VolunteerForm = () => {
 
                   <div className="space-y-1.5">
                     <Label htmlFor="vol-overnight">
-                      Staying Overnight?{" "}
-                      <span className="text-gold">*</span>
+                      Staying Overnight? <span className="text-gold">*</span>
                     </Label>
                     <Controller
                       name="overnight"

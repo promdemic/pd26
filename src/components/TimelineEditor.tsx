@@ -168,9 +168,7 @@ const TimelineEditor = ({
               <span className="w-20 shrink-0 text-right text-sm font-semibold text-gold">
                 {entry.time}
               </span>
-              <span className="flex-1 text-sm text-navy">
-                {entry.label}
-              </span>
+              <span className="flex-1 text-sm text-navy">{entry.label}</span>
               {isAdmin && (
                 <span className="flex shrink-0 gap-1 opacity-0 transition-opacity group-hover:opacity-100">
                   <button

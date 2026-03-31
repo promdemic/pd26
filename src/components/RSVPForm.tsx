@@ -208,8 +208,7 @@ const RSVPForm = () => {
 
                   <div className="space-y-1.5">
                     <Label htmlFor="overnight" className="text-white/90">
-                      Staying Overnight?{" "}
-                      <span className="text-gold">*</span>
+                      Staying Overnight? <span className="text-gold">*</span>
                     </Label>
                     <Controller
                       name="overnight"

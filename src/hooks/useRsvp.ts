@@ -26,7 +26,10 @@ export const useRsvp = (uid: string | null) => {
           return;
         }
         const parsed = RsvpSchema.safeParse(snap.data());
-        setState({ status: "ready", rsvp: parsed.success ? parsed.data : null });
+        setState({
+          status: "ready",
+          rsvp: parsed.success ? parsed.data : null,
+        });
       })
       .catch((err) => {
         console.error("Failed to load RSVP:", err);

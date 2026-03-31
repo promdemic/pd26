@@ -86,9 +86,7 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
           <div className="space-y-3">
             <p className="text-sm text-navy/70">
               Signed in as{" "}
-              <span className="font-medium text-navy">
-                {state.user.email}
-              </span>
+              <span className="font-medium text-navy">{state.user.email}</span>
             </p>
             <Button
               onClick={() => setReportOpen(true)}

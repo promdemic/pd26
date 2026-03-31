@@ -51,7 +51,7 @@ export const useTimeline = (editingRef: React.RefObject<boolean>) => {
       () => setState({ status: "error" }),
     );
     return unsub;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // editingRef is a stable ref object — its .current changes but the ref itself never does
 
   const flushPending = () => {
