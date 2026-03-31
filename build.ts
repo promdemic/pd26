@@ -1,13 +1,7 @@
 import tailwind from "bun-plugin-tailwind";
+import { REQUIRED_FIREBASE_ENV } from "./src/lib/firebaseEnv";
 
-const REQUIRED_ENV = [
-  "BUN_PUBLIC_FIREBASE_API_KEY",
-  "BUN_PUBLIC_FIREBASE_AUTH_DOMAIN",
-  "BUN_PUBLIC_FIREBASE_PROJECT_ID",
-  "BUN_PUBLIC_FIREBASE_APP_ID",
-];
-
-const missing = REQUIRED_ENV.filter((k) => !process.env[k]);
+const missing = REQUIRED_FIREBASE_ENV.filter((k) => !process.env[k]);
 if (missing.length > 0) {
   console.error(
     "Missing required environment variables:\n" +
