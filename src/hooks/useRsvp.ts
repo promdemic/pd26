@@ -19,14 +19,19 @@ export const useRsvp = (uid: string | null) => {
       return;
     }
     setState({ status: "loading" });
-    getDoc(doc(db, "rsvps", uid)).then((snap) => {
-      if (!snap.exists()) {
+    getDoc(doc(db, "rsvps", uid))
+      .then((snap) => {
+        if (!snap.exists()) {
+          setState({ status: "ready", rsvp: null });
+          return;
+        }
+        const parsed = RsvpSchema.safeParse(snap.data());
+        setState({ status: "ready", rsvp: parsed.success ? parsed.data : null });
+      })
+      .catch((err) => {
+        console.error("Failed to load RSVP:", err);
         setState({ status: "ready", rsvp: null });
-        return;
-      }
-      const parsed = RsvpSchema.safeParse(snap.data());
-      setState({ status: "ready", rsvp: parsed.success ? parsed.data : null });
-    });
+      });
   }, [uid]);
 
   const save = async (data: Rsvp) => {

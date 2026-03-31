@@ -46,8 +46,8 @@ export const useVolunteer = (uid: string | null) => {
       return;
     }
     setState({ status: "loading" });
-    Promise.all([getDoc(doc(db, "volunteers", uid)), fetchCounts()]).then(
-      ([snap]) => {
+    Promise.all([getDoc(doc(db, "volunteers", uid)), fetchCounts()])
+      .then(([snap]) => {
         if (!snap.exists()) {
           setState({ status: "ready", volunteer: null });
           return;
@@ -57,8 +57,11 @@ export const useVolunteer = (uid: string | null) => {
           status: "ready",
           volunteer: parsed.success ? parsed.data : null,
         });
-      },
-    );
+      })
+      .catch((err) => {
+        console.error("Failed to load volunteer data:", err);
+        setState({ status: "ready", volunteer: null });
+      });
   }, [uid]);
 
   const save = async (data: Volunteer) => {
