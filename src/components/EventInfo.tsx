@@ -24,8 +24,8 @@ const TimelineSkeleton = () => (
   <ol className="space-y-3">
     {SKELETON_WIDTHS.map((w, i) => (
       <li key={i} className="flex gap-4">
-        <span className="w-20 shrink-0 rounded bg-[#c9a84c]/20 animate-pulse h-4" />
-        <span className={`${w} rounded bg-[#1a2744]/10 animate-pulse h-4`} />
+        <span className="w-20 shrink-0 rounded bg-gold/20 animate-pulse h-4" />
+        <span className={`${w} rounded bg-navy/10 animate-pulse h-4`} />
       </li>
     ))}
   </ol>
@@ -121,20 +121,20 @@ const EventInfo = () => {
   return (
     <section id="about" className="px-6 py-20">
       <div className="mx-auto max-w-5xl">
-        <h2 className="mb-12 text-center text-3xl font-bold text-[#1a2744] sm:text-4xl">
+        <h2 className="mb-12 text-center text-3xl font-bold text-navy sm:text-4xl">
           Event Details
         </h2>
 
         <div className="grid gap-8 md:grid-cols-2">
           {/* Timeline */}
-          <Card className="border-[#d4c8b8]">
+          <Card className="border-border">
             <CardHeader>
-              <CardTitle className="text-[#1a2744]">Schedule</CardTitle>
+              <CardTitle className="text-navy">Schedule</CardTitle>
             </CardHeader>
             <CardContent>
               {timelineState.status === "loading" && <TimelineSkeleton />}
               {timelineState.status === "error" && (
-                <p className="text-sm text-[#1a2744]/60">
+                <p className="text-sm text-navy/60">
                   Schedule unavailable — check back soon.
                 </p>
               )}
@@ -155,11 +155,11 @@ const EventInfo = () => {
 
           {/* Logistics */}
           <div className="space-y-6">
-            <Card className="border-[#d4c8b8]">
+            <Card className="border-border">
               <CardHeader>
-                <CardTitle className="text-[#1a2744]">Getting There</CardTitle>
+                <CardTitle className="text-navy">Getting There</CardTitle>
               </CardHeader>
-              <CardContent className="text-sm text-[#1a2744]">
+              <CardContent className="text-sm text-navy">
                 <InfoSectionEditor
                   items={sections?.gettingThere ?? DEFAULT_GETTING_THERE}
                   isAdmin={isAdmin}
@@ -170,11 +170,11 @@ const EventInfo = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-[#d4c8b8]">
+            <Card className="border-border">
               <CardHeader>
-                <CardTitle className="text-[#1a2744]">Food & Fun</CardTitle>
+                <CardTitle className="text-navy">Food & Fun</CardTitle>
               </CardHeader>
-              <CardContent className="text-sm text-[#1a2744]">
+              <CardContent className="text-sm text-navy">
                 <InfoSectionEditor
                   items={sections?.food ?? DEFAULT_FOOD}
                   isAdmin={isAdmin}
@@ -185,11 +185,11 @@ const EventInfo = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-[#d4c8b8]">
+            <Card className="border-border">
               <CardHeader>
-                <CardTitle className="text-[#1a2744]">Overnight</CardTitle>
+                <CardTitle className="text-navy">Overnight</CardTitle>
               </CardHeader>
-              <CardContent className="text-sm text-[#1a2744]">
+              <CardContent className="text-sm text-navy">
                 <InfoSectionEditor
                   items={sections?.overnight ?? DEFAULT_OVERNIGHT}
                   isAdmin={isAdmin}

@@ -42,14 +42,14 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
-          <DialogTitle className="text-[#1a2744]">Admin</DialogTitle>
+          <DialogTitle className="text-navy">Admin</DialogTitle>
           <DialogDescription className="sr-only">
             Sign in with Google to access admin controls.
           </DialogDescription>
         </DialogHeader>
 
         {state.status === "loading" && (
-          <p className="text-sm text-[#1a2744]/60">Loading…</p>
+          <p className="text-sm text-navy/60">Loading…</p>
         )}
 
         {state.status === "unauthenticated" && (
@@ -58,7 +58,7 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
             <Button
               onClick={handleSignIn}
               disabled={busy}
-              className="w-full bg-[#1a2744] text-white hover:bg-[#1a2744]/90"
+              className="w-full bg-navy text-white hover:bg-navy/90"
             >
               {busy ? "Signing in…" : "Sign in with Google"}
             </Button>
@@ -67,7 +67,7 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
 
         {state.status === "authenticated" && !state.isAdmin && (
           <div className="space-y-3">
-            <p className="text-sm text-[#1a2744]/70">
+            <p className="text-sm text-navy/70">
               Signed in as{" "}
               <span className="font-medium">{state.user.email}</span>, but this
               account does not have admin access.
@@ -84,15 +84,15 @@ const AdminSignInModal = ({ open, onOpenChange }: Props) => {
 
         {state.status === "authenticated" && state.isAdmin && (
           <div className="space-y-3">
-            <p className="text-sm text-[#1a2744]/70">
+            <p className="text-sm text-navy/70">
               Signed in as{" "}
-              <span className="font-medium text-[#1a2744]">
+              <span className="font-medium text-navy">
                 {state.user.email}
               </span>
             </p>
             <Button
               onClick={() => setReportOpen(true)}
-              className="w-full bg-[#c9a84c] text-[#1a2744] hover:bg-[#b8943d]"
+              className="w-full bg-gold text-navy hover:bg-[#b8943d]"
             >
               View Report
             </Button>

@@ -103,16 +103,16 @@ const RSVPForm = () => {
       <section id="rsvp" className="px-6 py-20">
         <div className="mx-auto max-w-lg text-center">
           <div className="mb-4 text-5xl">🎉</div>
-          <h2 className="mb-2 text-2xl font-bold text-[#1a2744]">
+          <h2 className="mb-2 text-2xl font-bold text-navy">
             You're on the list!
           </h2>
-          <p className="mb-6 text-[#5a6a8a]">
+          <p className="mb-6 text-muted-foreground">
             We've got your RSVP, {nameValue}. See you on the Bay!
           </p>
           <Button
             variant="outline"
             onClick={() => setSubmitStatus("idle")}
-            className="border-[#1a2744]/30 text-[#1a2744]"
+            className="border-navy/30 text-navy"
           >
             Edit your RSVP
           </Button>
@@ -129,7 +129,7 @@ const RSVPForm = () => {
       (authState.status === "authenticated" && rsvpState.status === "loading"));
 
   return (
-    <section id="rsvp" className="bg-[#1a2744] px-6 py-20">
+    <section id="rsvp" className="bg-navy px-6 py-20">
       <div className="mx-auto max-w-lg">
         <h2 className="mb-2 text-center text-3xl font-bold text-white sm:text-4xl">
           Student RSVP
@@ -143,7 +143,7 @@ const RSVPForm = () => {
             <Button
               onClick={handleSignIn}
               size="lg"
-              className="bg-[#c9a84c] text-[#1a2744] hover:bg-[#b8943d]"
+              className="bg-gold text-navy hover:bg-[#b8943d]"
             >
               Sign in with Google to RSVP
             </Button>
@@ -164,7 +164,7 @@ const RSVPForm = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   <div className="space-y-1.5">
                     <Label htmlFor="name" className="text-white/90">
-                      Full Name <span className="text-[#c9a84c]">*</span>
+                      Full Name <span className="text-gold">*</span>
                     </Label>
                     <Input
                       id="name"
@@ -207,7 +207,7 @@ const RSVPForm = () => {
                   <div className="space-y-1.5">
                     <Label htmlFor="overnight" className="text-white/90">
                       Staying Overnight?{" "}
-                      <span className="text-[#c9a84c]">*</span>
+                      <span className="text-gold">*</span>
                     </Label>
                     <Controller
                       name="overnight"
@@ -249,7 +249,7 @@ const RSVPForm = () => {
                           onChange={(e) =>
                             field.onChange(e.target.checked ? true : undefined)
                           }
-                          className="mt-0.5 h-4 w-4 shrink-0 accent-[#c9a84c]"
+                          className="mt-0.5 h-4 w-4 shrink-0 accent-gold"
                         />
                         <span className="text-sm text-white/80">
                           I commit to being respectful of other guests, the
@@ -273,7 +273,7 @@ const RSVPForm = () => {
                     type="submit"
                     size="lg"
                     disabled={submitStatus === "submitting"}
-                    className="w-full bg-[#c9a84c] text-[#1a2744] hover:bg-[#b8943d] disabled:opacity-50"
+                    className="w-full bg-gold text-navy hover:bg-[#b8943d] disabled:opacity-50"
                   >
                     {submitStatus === "submitting"
                       ? "Saving…"

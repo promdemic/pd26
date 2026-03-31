@@ -119,11 +119,11 @@ const TimelineEditor = ({
                         }),
                       )
                     }
-                    className="h-7 w-24 shrink-0 rounded-md border border-input bg-background px-2 text-right text-xs font-semibold text-[#c9a84c] focus:outline-none focus:ring-1 focus:ring-ring"
+                    className="h-7 w-24 shrink-0 rounded-md border border-input bg-background px-2 text-right text-xs font-semibold text-gold focus:outline-none focus:ring-1 focus:ring-ring"
                     autoFocus
                   />
                   <Input
-                    className="h-7 min-w-0 flex-1 text-xs text-[#1a2744]"
+                    className="h-7 min-w-0 flex-1 text-xs text-navy"
                     value={row.label}
                     onChange={(e) =>
                       setRows((prev) =>
@@ -143,14 +143,14 @@ const TimelineEditor = ({
                   <button
                     onClick={() => commitEdit(entry.id)}
                     disabled={saving}
-                    className="shrink-0 text-[#2a7f7f] hover:text-[#2a7f7f]/70 disabled:opacity-40"
+                    className="shrink-0 text-teal hover:text-teal/70 disabled:opacity-40"
                     aria-label="Save"
                   >
                     <Check className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => cancelEdit(entry.id)}
-                    className="shrink-0 text-[#1a2744]/40 hover:text-[#1a2744]/70"
+                    className="shrink-0 text-navy/40 hover:text-navy/70"
                     aria-label="Cancel"
                   >
                     <X className="h-4 w-4" />
@@ -165,10 +165,10 @@ const TimelineEditor = ({
 
           return (
             <li key={entry.id} className="group flex items-center gap-4">
-              <span className="w-20 shrink-0 text-right text-sm font-semibold text-[#c9a84c]">
+              <span className="w-20 shrink-0 text-right text-sm font-semibold text-gold">
                 {entry.time}
               </span>
-              <span className="flex-1 text-sm text-[#1a2744]">
+              <span className="flex-1 text-sm text-navy">
                 {entry.label}
               </span>
               {isAdmin && (
@@ -176,7 +176,7 @@ const TimelineEditor = ({
                   <button
                     onClick={() => startEdit(entry)}
                     disabled={anyEditing}
-                    className="text-[#1a2744]/40 hover:text-[#1a2744] disabled:opacity-20"
+                    className="text-navy/40 hover:text-navy disabled:opacity-20"
                     aria-label="Edit"
                   >
                     <Pencil className="h-3.5 w-3.5" />
@@ -184,7 +184,7 @@ const TimelineEditor = ({
                   <button
                     onClick={() => deleteRow(entry.id)}
                     disabled={anyEditing || saving}
-                    className="text-[#1a2744]/40 hover:text-red-500 disabled:opacity-20"
+                    className="text-navy/40 hover:text-red-500 disabled:opacity-20"
                     aria-label="Delete"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
@@ -202,7 +202,7 @@ const TimelineEditor = ({
           size="sm"
           onClick={addRow}
           disabled={anyEditing || saving}
-          className="mt-2 h-7 gap-1 text-xs text-[#1a2744]/50 hover:text-[#1a2744]"
+          className="mt-2 h-7 gap-1 text-xs text-navy/50 hover:text-navy"
         >
           <Plus className="h-3.5 w-3.5" />
           Add entry

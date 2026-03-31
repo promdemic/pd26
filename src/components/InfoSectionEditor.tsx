@@ -75,7 +75,7 @@ const InfoSectionEditor = ({
               <button
                 type="button"
                 onClick={() => remove(i)}
-                className="text-[#1a2744]/40 hover:text-red-500"
+                className="text-navy/40 hover:text-red-500"
                 aria-label="Remove item"
               >
                 <Trash2 className="h-3.5 w-3.5" />
@@ -95,7 +95,7 @@ const InfoSectionEditor = ({
           variant="ghost"
           size="sm"
           onClick={() => append({ label: "", body: "" })}
-          className="h-7 gap-1 text-xs text-[#1a2744]/50 hover:text-[#1a2744]"
+          className="h-7 gap-1 text-xs text-navy/50 hover:text-navy"
         >
           <Plus className="h-3.5 w-3.5" />
           Add item
@@ -106,7 +106,7 @@ const InfoSectionEditor = ({
             type="submit"
             size="sm"
             disabled={saving}
-            className="h-7 bg-[#2a7f7f] text-white hover:bg-[#2a7f7f]/80 disabled:opacity-50"
+            className="h-7 bg-teal text-white hover:bg-teal/80 disabled:opacity-50"
           >
             {saving ? "Saving…" : "Save"}
           </Button>
@@ -130,7 +130,7 @@ const InfoSectionEditor = ({
       {isAdmin && (
         <button
           onClick={startEdit}
-          className="absolute -right-1 -top-1 opacity-0 transition-opacity group-hover:opacity-100 text-[#1a2744]/40 hover:text-[#1a2744]"
+          className="absolute -right-1 -top-1 opacity-0 transition-opacity group-hover:opacity-100 text-navy/40 hover:text-navy"
           aria-label="Edit section"
         >
           <Pencil className="h-3.5 w-3.5" />
@@ -141,7 +141,7 @@ const InfoSectionEditor = ({
         labelStyle === "heading" ? (
           <div key={i}>
             {item.label && (
-              <p className="font-semibold text-[#2a7f7f]">{item.label}</p>
+              <p className="font-semibold text-teal">{item.label}</p>
             )}
             <p>{item.body}</p>
           </div>
@@ -155,7 +155,7 @@ const InfoSectionEditor = ({
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#2a7f7f] underline underline-offset-2"
+                className="text-teal underline underline-offset-2"
               >
                 {item.body}
               </a>

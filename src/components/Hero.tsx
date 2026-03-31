@@ -30,16 +30,16 @@ const Hero = () => {
         />
       </picture>
       {/* Dark navy overlay for readability */}
-      <div className="absolute inset-0 bg-[#1a2744]/75" />
+      <div className="absolute inset-0 bg-navy/75" />
 
       <div className="relative z-10 max-w-3xl space-y-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#c9a84c]">
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gold">
           Port Gamble Bay · May 15–16, 2026
         </p>
 
         <h1 className="text-6xl font-bold tracking-tight text-white sm:text-7xl md:text-8xl">
           Promdemic
-          <span className="block text-[#c9a84c]">2026</span>
+          <span className="block text-gold">2026</span>
         </h1>
 
         <p className="mx-auto max-w-xl text-lg text-white/80">
@@ -51,7 +51,7 @@ const Hero = () => {
           <Button
             asChild
             size="lg"
-            className="bg-[#c9a84c] px-8 text-[#1a2744] hover:bg-[#b8943d]"
+            className="bg-gold px-8 text-navy hover:bg-[#b8943d]"
           >
             <a href="#rsvp">RSVP Now</a>
           </Button>

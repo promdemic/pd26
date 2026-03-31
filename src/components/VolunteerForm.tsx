@@ -95,17 +95,17 @@ const VolunteerForm = () => {
       <section id="volunteer" className="px-6 py-20">
         <div className="mx-auto max-w-lg text-center">
           <div className="mb-4 text-5xl">🙌</div>
-          <h2 className="mb-2 text-2xl font-bold text-[#1a2744]">
+          <h2 className="mb-2 text-2xl font-bold text-navy">
             Thank you, {nameValue}!
           </h2>
-          <p className="mb-6 text-[#5a6a8a]">
+          <p className="mb-6 text-muted-foreground">
             You're signed up as <strong>{roleValue}</strong>. We'll be in touch
             with details soon.
           </p>
           <Button
             variant="outline"
             onClick={() => setSubmitStatus("idle")}
-            className="border-[#1a2744]/30 text-[#1a2744]"
+            className="border-navy/30 text-navy"
           >
             Edit your signup
           </Button>
@@ -125,10 +125,10 @@ const VolunteerForm = () => {
   return (
     <section id="volunteer" className="px-6 py-20">
       <div className="mx-auto max-w-lg">
-        <h2 className="mb-2 text-center text-3xl font-bold text-[#1a2744] sm:text-4xl">
+        <h2 className="mb-2 text-center text-3xl font-bold text-navy sm:text-4xl">
           Parent Volunteers
         </h2>
-        <p className="mb-8 text-center text-[#5a6a8a]">
+        <p className="mb-8 text-center text-muted-foreground">
           This event runs on parent power. Sign up for a role below.
         </p>
 
@@ -137,15 +137,15 @@ const VolunteerForm = () => {
             <Button
               onClick={handleSignIn}
               size="lg"
-              className="bg-[#c9a84c] text-[#1a2744] hover:bg-[#b8943d]"
+              className="bg-gold text-navy hover:bg-[#b8943d]"
             >
               Sign in with Google to volunteer
             </Button>
           </div>
         ) : (
-          <Card className="border-[#d4c8b8]">
+          <Card className="border-border">
             <CardHeader>
-              <CardTitle className="text-[#1a2744]">
+              <CardTitle className="text-navy">
                 {volunteerState.status === "ready" && volunteerState.volunteer
                   ? "Update your signup"
                   : "Sign Up"}
@@ -158,7 +158,7 @@ const VolunteerForm = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   <div className="space-y-1.5">
                     <Label htmlFor="vol-name">
-                      Full Name <span className="text-[#c9a84c]">*</span>
+                      Full Name <span className="text-gold">*</span>
                     </Label>
                     <Input
                       id="vol-name"
@@ -174,7 +174,7 @@ const VolunteerForm = () => {
 
                   <div className="space-y-1.5">
                     <Label htmlFor="vol-role">
-                      Role <span className="text-[#c9a84c]">*</span>
+                      Role <span className="text-gold">*</span>
                     </Label>
                     <Controller
                       name="role"
@@ -209,7 +209,7 @@ const VolunteerForm = () => {
                                   className={isFull ? "opacity-40" : ""}
                                 >
                                   {role}{" "}
-                                  <span className="text-[#c9a84c]">
+                                  <span className="text-gold">
                                     ({available} of {capacity} open)
                                   </span>
                                 </SelectItem>
@@ -229,7 +229,7 @@ const VolunteerForm = () => {
                   <div className="space-y-1.5">
                     <Label htmlFor="vol-overnight">
                       Staying Overnight?{" "}
-                      <span className="text-[#c9a84c]">*</span>
+                      <span className="text-gold">*</span>
                     </Label>
                     <Controller
                       name="overnight"
@@ -268,7 +268,7 @@ const VolunteerForm = () => {
                     type="submit"
                     size="lg"
                     disabled={submitStatus === "submitting"}
-                    className="w-full bg-[#c9a84c] text-[#1a2744] hover:bg-[#b8943d] disabled:opacity-50"
+                    className="w-full bg-gold text-navy hover:bg-[#b8943d] disabled:opacity-50"
                   >
                     {submitStatus === "submitting"
                       ? "Saving…"

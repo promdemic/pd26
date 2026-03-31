@@ -27,7 +27,7 @@ const TableSkeleton = ({ cols }: { cols: number }) => (
       <tr key={i}>
         {Array.from({ length: cols }).map((_, j) => (
           <td key={j} className="px-3 py-2">
-            <div className="h-3 animate-pulse rounded bg-[#1a2744]/10" />
+            <div className="h-3 animate-pulse rounded bg-navy/10" />
           </td>
         ))}
       </tr>
@@ -36,21 +36,21 @@ const TableSkeleton = ({ cols }: { cols: number }) => (
 );
 
 const Th = ({ children }: { children: React.ReactNode }) => (
-  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-[#1a2744]/50">
+  <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-navy/50">
     {children}
   </th>
 );
 
 const Td = ({ children }: { children: React.ReactNode }) => (
-  <td className="px-3 py-2 text-sm text-[#1a2744]">{children}</td>
+  <td className="px-3 py-2 text-sm text-navy">{children}</td>
 );
 
 const empty = (v: string | undefined) => v?.trim() || "—";
 const yesNo = (v: boolean) => (v ? "Yes" : "No");
 
 const StatCard = ({ label, value }: { label: string; value: number }) => (
-  <div className="rounded-lg bg-[#1a2744] px-4 py-3 text-center">
-    <div className="text-2xl font-bold text-[#c9a84c]">{value}</div>
+  <div className="rounded-lg bg-navy px-4 py-3 text-center">
+    <div className="text-2xl font-bold text-gold">{value}</div>
     <div className="mt-0.5 text-xs text-white/70">{label}</div>
   </div>
 );
@@ -72,20 +72,20 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="flex max-h-[90vh] w-full max-w-4xl flex-col gap-0 overflow-hidden p-0">
-        <DialogHeader className="shrink-0 border-b border-[#d4c8b8] px-6 py-4">
+        <DialogHeader className="shrink-0 border-b border-border px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <DialogTitle className="text-[#1a2744]">
+              <DialogTitle className="text-navy">
                 Attendee Report
               </DialogTitle>
-              <DialogDescription className="text-[#1a2744]/50">
+              <DialogDescription className="text-navy/50">
                 Promdemic 2026 · May 15–16
               </DialogDescription>
             </div>
             <button
               onClick={refresh}
               disabled={loading}
-              className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-[#1a2744]/50 hover:bg-[#1a2744]/5 hover:text-[#1a2744] disabled:opacity-40"
+              className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-navy/50 hover:bg-navy/5 hover:text-navy disabled:opacity-40"
               aria-label="Refresh"
             >
               <RefreshCw
@@ -119,12 +119,12 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
 
           {/* Volunteer slots */}
           <div>
-            <h3 className="mb-2 text-sm font-semibold text-[#1a2744]">
+            <h3 className="mb-2 text-sm font-semibold text-navy">
               Volunteer Slots
             </h3>
-            <div className="overflow-x-auto rounded-lg border border-[#d4c8b8]">
+            <div className="overflow-x-auto rounded-lg border border-border">
               <table className="w-full">
-                <thead className="border-b border-[#d4c8b8] bg-[#f5efe6]">
+                <thead className="border-b border-border bg-sand">
                   <tr>
                     <Th>Role</Th>
                     <Th>Filled</Th>
@@ -132,7 +132,7 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                     <Th>Status</Th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#d4c8b8]">
+                <tbody className="divide-y divide-border">
                   {(
                     Object.entries(VOLUNTEER_ROLES) as [VolunteerRole, number][]
                   ).map(([role, capacity]) => {
@@ -147,11 +147,11 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                         <Td>{capacity}</Td>
                         <td className="px-3 py-2 text-sm">
                           {open <= 0 ? (
-                            <span className="font-medium text-[#2a7f7f]">
+                            <span className="font-medium text-teal">
                               Full
                             </span>
                           ) : (
-                            <span className="text-[#c9a84c]">{open} open</span>
+                            <span className="text-gold">{open} open</span>
                           )}
                         </td>
                       </tr>
@@ -164,12 +164,12 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
 
           {/* Student RSVPs */}
           <div>
-            <h3 className="mb-2 text-sm font-semibold text-[#1a2744]">
+            <h3 className="mb-2 text-sm font-semibold text-navy">
               Student RSVPs ({rsvps.length})
             </h3>
-            <div className="overflow-x-auto rounded-lg border border-[#d4c8b8]">
+            <div className="overflow-x-auto rounded-lg border border-border">
               <table className="w-full">
-                <thead className="border-b border-[#d4c8b8] bg-[#f5efe6]">
+                <thead className="border-b border-border bg-sand">
                   <tr>
                     <Th>Name</Th>
                     <Th>Overnight</Th>
@@ -177,14 +177,14 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                     <Th>Song Requests</Th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#d4c8b8]">
+                <tbody className="divide-y divide-border">
                   {loading ? (
                     <TableSkeleton cols={4} />
                   ) : error || rsvps.length === 0 ? (
                     <tr>
                       <td
                         colSpan={4}
-                        className="px-3 py-4 text-center text-sm text-[#1a2744]/40"
+                        className="px-3 py-4 text-center text-sm text-navy/40"
                       >
                         {error ? "Could not load data" : "No RSVPs yet"}
                       </td>
@@ -206,12 +206,12 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
 
           {/* Parent volunteers */}
           <div>
-            <h3 className="mb-2 text-sm font-semibold text-[#1a2744]">
+            <h3 className="mb-2 text-sm font-semibold text-navy">
               Parent Volunteers ({volunteers.length})
             </h3>
-            <div className="overflow-x-auto rounded-lg border border-[#d4c8b8]">
+            <div className="overflow-x-auto rounded-lg border border-border">
               <table className="w-full">
-                <thead className="border-b border-[#d4c8b8] bg-[#f5efe6]">
+                <thead className="border-b border-border bg-sand">
                   <tr>
                     <Th>Name</Th>
                     <Th>Role</Th>
@@ -219,14 +219,14 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                     <Th>Overnight</Th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#d4c8b8]">
+                <tbody className="divide-y divide-border">
                   {loading ? (
                     <TableSkeleton cols={4} />
                   ) : error || volunteers.length === 0 ? (
                     <tr>
                       <td
                         colSpan={4}
-                        className="px-3 py-4 text-center text-sm text-[#1a2744]/40"
+                        className="px-3 py-4 text-center text-sm text-navy/40"
                       >
                         {error ? "Could not load data" : "No volunteers yet"}
                       </td>
