@@ -83,17 +83,20 @@ const TimelineEditor = ({
     setSaving(false);
   };
 
-  const addRow = () => {
+  const addRow = async () => {
     const id = crypto.randomUUID();
     const newEntry: TimelineEntry = { id, time: "", label: "" };
-    // Optimistically append so the new row has something to edit
     const updated = [...entries, newEntry];
-    onSave(updated).then(() => {
+    setSaving(true);
+    try {
+      await onSave(updated);
       setRows((prev) =>
         new Map(prev).set(id, { type: "edit", time: "", label: "" }),
       );
       onEditingChange(true);
-    });
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
