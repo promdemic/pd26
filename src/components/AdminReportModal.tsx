@@ -180,13 +180,13 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                 <tbody className="divide-y divide-[#d4c8b8]">
                   {loading ? (
                     <TableSkeleton cols={4} />
-                  ) : rsvps.length === 0 ? (
+                  ) : error || rsvps.length === 0 ? (
                     <tr>
                       <td
                         colSpan={4}
                         className="px-3 py-4 text-center text-sm text-[#1a2744]/40"
                       >
-                        No RSVPs yet
+                        {error ? "Could not load data" : "No RSVPs yet"}
                       </td>
                     </tr>
                   ) : (
@@ -222,13 +222,13 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                 <tbody className="divide-y divide-[#d4c8b8]">
                   {loading ? (
                     <TableSkeleton cols={4} />
-                  ) : volunteers.length === 0 ? (
+                  ) : error || volunteers.length === 0 ? (
                     <tr>
                       <td
                         colSpan={4}
                         className="px-3 py-4 text-center text-sm text-[#1a2744]/40"
                       >
-                        No volunteers yet
+                        {error ? "Could not load data" : "No volunteers yet"}
                       </td>
                     </tr>
                   ) : (
