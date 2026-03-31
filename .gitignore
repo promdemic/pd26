@@ -36,3 +36,4 @@ firebase-debug.log
 packages/web/firestore-debug.log
 .firebase/hosting.*
 firestore-debug.log
+CODE_REVIEW.md

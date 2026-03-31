@@ -30,7 +30,7 @@ export const useRsvp = (uid: string | null) => {
   }, [uid]);
 
   const save = async (data: Rsvp) => {
-    if (!uid) return;
+    if (!uid) throw new Error("save() called without an authenticated uid");
     await setDoc(doc(db, "rsvps", uid), {
       ...data,
       updatedAt: serverTimestamp(),

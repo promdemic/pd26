@@ -58,7 +58,7 @@ export const useVolunteer = (uid: string | null) => {
   }, [uid]);
 
   const save = async (data: Volunteer) => {
-    if (!uid) return;
+    if (!uid) throw new Error("save() called without an authenticated uid");
     await setDoc(doc(db, "volunteers", uid), {
       ...data,
       updatedAt: serverTimestamp(),
