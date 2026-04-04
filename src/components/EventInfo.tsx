@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
 import { useTimeline } from "@/hooks/useTimeline";
+import DisneyboundingExamples from "@/components/DisneyboundingExamples";
 import InfoSectionEditor from "@/components/InfoSectionEditor";
 import TimelineEditor from "@/components/TimelineEditor";
 import { type InfoItem, type TimelineEntry } from "@/lib/schemas";
@@ -217,6 +218,7 @@ const EventInfo = () => {
                 onSave={handleSaveSection("disneybounding")}
                 onEditingChange={handleEditingChange}
               />
+              <DisneyboundingExamples />
             </CardContent>
           </Card>
 
