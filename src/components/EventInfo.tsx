@@ -38,7 +38,10 @@ const InfoSectionSkeleton = () => (
   <div className="space-y-3">
     {INFO_SKELETON_ROWS.map((w, i) =>
       i % 2 === 0 ? (
-        <div key={i} className={`h-3.5 ${w} animate-pulse rounded bg-navy/20`} />
+        <div
+          key={i}
+          className={`h-3.5 ${w} animate-pulse rounded bg-navy/20`}
+        />
       ) : (
         <div key={i} className={`h-3 ${w} animate-pulse rounded bg-navy/10`} />
       ),
@@ -190,6 +193,27 @@ const EventInfo = () => {
 
           <Card className="mb-8 break-inside-avoid border-border">
             <CardHeader>
+              <CardTitle className="text-navy">Overnight</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-navy">
+              {timelineState.status === "loading" && <InfoSectionSkeleton />}
+              {timelineState.status === "error" && (
+                <p className="text-navy/60">Unavailable — check back soon.</p>
+              )}
+              {timelineState.status === "success" && (
+                <InfoSectionEditor
+                  items={timelineState.overnight ?? DEFAULT_OVERNIGHT}
+                  isAdmin={isAdmin}
+                  labelStyle="heading"
+                  onSave={handleSaveSection("overnight")}
+                  onEditingChange={handleEditingChange}
+                />
+              )}
+            </CardContent>
+          </Card>
+
+          <Card className="mb-8 break-inside-avoid border-border">
+            <CardHeader>
               <CardTitle className="text-navy">Getting There</CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-navy">
@@ -242,7 +266,9 @@ const EventInfo = () => {
               {timelineState.status === "success" && (
                 <>
                   <InfoSectionEditor
-                    items={timelineState.disneybounding ?? DEFAULT_DISNEYBOUNDING}
+                    items={
+                      timelineState.disneybounding ?? DEFAULT_DISNEYBOUNDING
+                    }
                     isAdmin={isAdmin}
                     labelStyle="heading"
                     onSave={handleSaveSection("disneybounding")}
@@ -250,27 +276,6 @@ const EventInfo = () => {
                   />
                   <DisneyboundingExamples />
                 </>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card className="mb-8 break-inside-avoid border-border">
-            <CardHeader>
-              <CardTitle className="text-navy">Overnight</CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm text-navy">
-              {timelineState.status === "loading" && <InfoSectionSkeleton />}
-              {timelineState.status === "error" && (
-                <p className="text-navy/60">Unavailable — check back soon.</p>
-              )}
-              {timelineState.status === "success" && (
-                <InfoSectionEditor
-                  items={timelineState.overnight ?? DEFAULT_OVERNIGHT}
-                  isAdmin={isAdmin}
-                  labelStyle="heading"
-                  onSave={handleSaveSection("overnight")}
-                  onEditingChange={handleEditingChange}
-                />
               )}
             </CardContent>
           </Card>
