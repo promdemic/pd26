@@ -32,6 +32,20 @@ const TimelineSkeleton = () => (
   </ol>
 );
 
+const INFO_SKELETON_ROWS = ["w-24", "w-40", "w-24", "w-56", "w-20", "w-48"];
+
+const InfoSectionSkeleton = () => (
+  <div className="space-y-3">
+    {INFO_SKELETON_ROWS.map((w, i) =>
+      i % 2 === 0 ? (
+        <div key={i} className={`h-3.5 ${w} animate-pulse rounded bg-navy/20`} />
+      ) : (
+        <div key={i} className={`h-3 ${w} animate-pulse rounded bg-navy/10`} />
+      ),
+    )}
+  </div>
+);
+
 const DEFAULT_TIMELINE: TimelineEntry[] = [
   { id: "1", time: "4:20 PM", label: "Meet at Edmonds Ferry Terminal" },
   { id: "2", time: "4:45 PM", label: "Ferry Departure (foot passengers)" },
@@ -140,8 +154,6 @@ const EventInfo = () => {
       await saveSection(field, items, authState.user.uid);
     };
 
-  const sections = timelineState.status === "success" ? timelineState : null;
-
   return (
     <section id="about" className="px-6 py-20">
       <div className="mx-auto max-w-5xl">
@@ -181,13 +193,19 @@ const EventInfo = () => {
               <CardTitle className="text-navy">Getting There</CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-navy">
-              <InfoSectionEditor
-                items={sections?.gettingThere ?? DEFAULT_GETTING_THERE}
-                isAdmin={isAdmin}
-                labelStyle="heading"
-                onSave={handleSaveSection("gettingThere")}
-                onEditingChange={handleEditingChange}
-              />
+              {timelineState.status === "loading" && <InfoSectionSkeleton />}
+              {timelineState.status === "error" && (
+                <p className="text-navy/60">Unavailable — check back soon.</p>
+              )}
+              {timelineState.status === "success" && (
+                <InfoSectionEditor
+                  items={timelineState.gettingThere ?? DEFAULT_GETTING_THERE}
+                  isAdmin={isAdmin}
+                  labelStyle="heading"
+                  onSave={handleSaveSection("gettingThere")}
+                  onEditingChange={handleEditingChange}
+                />
+              )}
             </CardContent>
           </Card>
 
@@ -196,13 +214,19 @@ const EventInfo = () => {
               <CardTitle className="text-navy">Food & Fun</CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-navy">
-              <InfoSectionEditor
-                items={sections?.food ?? DEFAULT_FOOD}
-                isAdmin={isAdmin}
-                labelStyle="heading"
-                onSave={handleSaveSection("food")}
-                onEditingChange={handleEditingChange}
-              />
+              {timelineState.status === "loading" && <InfoSectionSkeleton />}
+              {timelineState.status === "error" && (
+                <p className="text-navy/60">Unavailable — check back soon.</p>
+              )}
+              {timelineState.status === "success" && (
+                <InfoSectionEditor
+                  items={timelineState.food ?? DEFAULT_FOOD}
+                  isAdmin={isAdmin}
+                  labelStyle="heading"
+                  onSave={handleSaveSection("food")}
+                  onEditingChange={handleEditingChange}
+                />
+              )}
             </CardContent>
           </Card>
 
@@ -211,14 +235,22 @@ const EventInfo = () => {
               <CardTitle className="text-navy">Disneybounding ✨</CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-navy">
-              <InfoSectionEditor
-                items={sections?.disneybounding ?? DEFAULT_DISNEYBOUNDING}
-                isAdmin={isAdmin}
-                labelStyle="heading"
-                onSave={handleSaveSection("disneybounding")}
-                onEditingChange={handleEditingChange}
-              />
-              <DisneyboundingExamples />
+              {timelineState.status === "loading" && <InfoSectionSkeleton />}
+              {timelineState.status === "error" && (
+                <p className="text-navy/60">Unavailable — check back soon.</p>
+              )}
+              {timelineState.status === "success" && (
+                <>
+                  <InfoSectionEditor
+                    items={timelineState.disneybounding ?? DEFAULT_DISNEYBOUNDING}
+                    isAdmin={isAdmin}
+                    labelStyle="heading"
+                    onSave={handleSaveSection("disneybounding")}
+                    onEditingChange={handleEditingChange}
+                  />
+                  <DisneyboundingExamples />
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -227,13 +259,19 @@ const EventInfo = () => {
               <CardTitle className="text-navy">Overnight</CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-navy">
-              <InfoSectionEditor
-                items={sections?.overnight ?? DEFAULT_OVERNIGHT}
-                isAdmin={isAdmin}
-                labelStyle="heading"
-                onSave={handleSaveSection("overnight")}
-                onEditingChange={handleEditingChange}
-              />
+              {timelineState.status === "loading" && <InfoSectionSkeleton />}
+              {timelineState.status === "error" && (
+                <p className="text-navy/60">Unavailable — check back soon.</p>
+              )}
+              {timelineState.status === "success" && (
+                <InfoSectionEditor
+                  items={timelineState.overnight ?? DEFAULT_OVERNIGHT}
+                  isAdmin={isAdmin}
+                  labelStyle="heading"
+                  onSave={handleSaveSection("overnight")}
+                  onEditingChange={handleEditingChange}
+                />
+              )}
             </CardContent>
           </Card>
         </div>
