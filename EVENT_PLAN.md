@@ -2,7 +2,7 @@
 
 **Location:** 30119 Gamble Pl NE, Kingston, WA 98346
 
-**Theme:** Coastal Elegance / "Promdemic"
+**Theme:** "Disneybounding" — a fun, creative way to dress inspired by Disney characters without wearing full costumes. Think: color-coordinated outfits, accessories, and subtle nods to favorite characters.
 
 **Date:** Friday, May 15 – Saturday, May 16, 2026
 

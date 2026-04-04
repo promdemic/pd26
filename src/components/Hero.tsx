@@ -43,7 +43,7 @@ const Hero = () => {
         </h1>
 
         <p className="mx-auto max-w-xl text-lg text-white/80">
-          Coastal Elegance on the Bay — an unforgettable overnight dance weekend
+          "Disneybounding" on the Bay — an unforgettable overnight dance weekend
           in Port Gamble, WA.
         </p>
 
