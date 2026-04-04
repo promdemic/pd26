@@ -141,7 +141,9 @@ const VolunteerForm = () => {
               size="lg"
               className="bg-gold text-navy hover:bg-[#b8943d]"
             >
-              Sign in with Google to volunteer
+              {authState.status === "authenticated"
+                ? "Click here to volunteer"
+                : "Sign in with Google to volunteer"}
             </Button>
           </div>
         ) : (

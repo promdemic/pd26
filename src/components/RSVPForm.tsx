@@ -147,7 +147,9 @@ const RSVPForm = () => {
               size="lg"
               className="bg-gold text-navy hover:bg-[#b8943d]"
             >
-              Sign in with Google to RSVP
+              {authState.status === "authenticated"
+                ? "Click here to RSVP"
+                : "Sign in with Google to RSVP"}
             </Button>
           </div>
         ) : (
