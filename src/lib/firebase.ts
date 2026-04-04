@@ -23,7 +23,10 @@ if (missing.length > 0) {
   throw new Error(`Missing Firebase env vars: ${missing.join(", ")}`);
 }
 
-const firebaseConfig = { apiKey, authDomain, projectId, appId } as Record<string, string>;
+const firebaseConfig = { apiKey, authDomain, projectId, appId } as Record<
+  string,
+  string
+>;
 
 const isNewApp = getApps().length === 0;
 const app = isNewApp ? initializeApp(firebaseConfig) : getApp();
