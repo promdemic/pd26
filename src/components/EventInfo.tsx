@@ -148,9 +148,8 @@ const EventInfo = () => {
           Event Details
         </h2>
 
-        <div className="grid gap-8 md:grid-cols-2">
-          {/* Timeline */}
-          <Card className="border-border">
+        <div className="md:columns-2 md:gap-8">
+          <Card className="mb-8 break-inside-avoid border-border">
             <CardHeader>
               <CardTitle className="text-navy">Schedule</CardTitle>
             </CardHeader>
@@ -176,68 +175,65 @@ const EventInfo = () => {
             </CardContent>
           </Card>
 
-          {/* Logistics */}
-          <div className="space-y-6">
-            <Card className="border-border">
-              <CardHeader>
-                <CardTitle className="text-navy">Getting There</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-navy">
-                <InfoSectionEditor
-                  items={sections?.gettingThere ?? DEFAULT_GETTING_THERE}
-                  isAdmin={isAdmin}
-                  labelStyle="heading"
-                  onSave={handleSaveSection("gettingThere")}
-                  onEditingChange={handleEditingChange}
-                />
-              </CardContent>
-            </Card>
+          <Card className="mb-8 break-inside-avoid border-border">
+            <CardHeader>
+              <CardTitle className="text-navy">Getting There</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-navy">
+              <InfoSectionEditor
+                items={sections?.gettingThere ?? DEFAULT_GETTING_THERE}
+                isAdmin={isAdmin}
+                labelStyle="heading"
+                onSave={handleSaveSection("gettingThere")}
+                onEditingChange={handleEditingChange}
+              />
+            </CardContent>
+          </Card>
 
-            <Card className="border-border">
-              <CardHeader>
-                <CardTitle className="text-navy">Food & Fun</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-navy">
-                <InfoSectionEditor
-                  items={sections?.food ?? DEFAULT_FOOD}
-                  isAdmin={isAdmin}
-                  labelStyle="heading"
-                  onSave={handleSaveSection("food")}
-                  onEditingChange={handleEditingChange}
-                />
-              </CardContent>
-            </Card>
+          <Card className="mb-8 break-inside-avoid border-border">
+            <CardHeader>
+              <CardTitle className="text-navy">Food & Fun</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-navy">
+              <InfoSectionEditor
+                items={sections?.food ?? DEFAULT_FOOD}
+                isAdmin={isAdmin}
+                labelStyle="heading"
+                onSave={handleSaveSection("food")}
+                onEditingChange={handleEditingChange}
+              />
+            </CardContent>
+          </Card>
 
-            <Card className="border-border">
-              <CardHeader>
-                <CardTitle className="text-navy">Disneybounding ✨</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-navy">
-                <InfoSectionEditor
-                  items={sections?.disneybounding ?? DEFAULT_DISNEYBOUNDING}
-                  isAdmin={isAdmin}
-                  labelStyle="heading"
-                  onSave={handleSaveSection("disneybounding")}
-                  onEditingChange={handleEditingChange}
-                />
-              </CardContent>
-            </Card>
+          <Card className="mb-8 break-inside-avoid border-border">
+            <CardHeader>
+              <CardTitle className="text-navy">Disneybounding ✨</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-navy">
+              <InfoSectionEditor
+                items={sections?.disneybounding ?? DEFAULT_DISNEYBOUNDING}
+                isAdmin={isAdmin}
+                labelStyle="heading"
+                onSave={handleSaveSection("disneybounding")}
+                onEditingChange={handleEditingChange}
+              />
+            </CardContent>
+          </Card>
 
-            <Card className="border-border">
-              <CardHeader>
-                <CardTitle className="text-navy">Overnight</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-navy">
-                <InfoSectionEditor
-                  items={sections?.overnight ?? DEFAULT_OVERNIGHT}
-                  isAdmin={isAdmin}
-                  labelStyle="heading"
-                  onSave={handleSaveSection("overnight")}
-                  onEditingChange={handleEditingChange}
-                />
-              </CardContent>
-            </Card>
-          </div>
+          <Card className="mb-8 break-inside-avoid border-border">
+            <CardHeader>
+              <CardTitle className="text-navy">Overnight</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-navy">
+              <InfoSectionEditor
+                items={sections?.overnight ?? DEFAULT_OVERNIGHT}
+                isAdmin={isAdmin}
+                labelStyle="heading"
+                onSave={handleSaveSection("overnight")}
+                onEditingChange={handleEditingChange}
+              />
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
