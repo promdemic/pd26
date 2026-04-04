@@ -85,6 +85,29 @@ const DEFAULT_OVERNIGHT: InfoItem[] = [
   },
 ];
 
+const DEFAULT_DISNEYBOUNDING: InfoItem[] = [
+  {
+    label: "What is Disneybounding?",
+    body: "An optional theme — dress in the colors and style of your favorite Disney character using everyday clothes. Totally optional, always fun.",
+  },
+  {
+    label: "No Costumes",
+    body: "Outfits should not look like costumes. Think inspired-by, not dressed-as.",
+  },
+  {
+    label: "Focus on Colors",
+    body: "Pick a character and use their signature colors. Minnie Mouse? Red top with white polka dots, black bottoms, yellow shoes.",
+  },
+  {
+    label: "Everyday Clothes",
+    body: "Normal street clothes only — skirts, t-shirts, vests, dresses. Keep it wearable.",
+  },
+  {
+    label: "No Masks or Weapons",
+    body: "Be cool, don't make it weird.",
+  },
+];
+
 const EventInfo = () => {
   const editingRef = useRef(false);
   const {
@@ -110,7 +133,7 @@ const EventInfo = () => {
   };
 
   const handleSaveSection =
-    (field: "gettingThere" | "food" | "overnight") =>
+    (field: "gettingThere" | "food" | "overnight" | "disneybounding") =>
     async (items: InfoItem[]) => {
       if (authState.status !== "authenticated") return;
       await saveSection(field, items, authState.user.uid);
@@ -180,6 +203,21 @@ const EventInfo = () => {
                   isAdmin={isAdmin}
                   labelStyle="heading"
                   onSave={handleSaveSection("food")}
+                  onEditingChange={handleEditingChange}
+                />
+              </CardContent>
+            </Card>
+
+            <Card className="border-border">
+              <CardHeader>
+                <CardTitle className="text-navy">Disneybounding ✨</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-navy">
+                <InfoSectionEditor
+                  items={sections?.disneybounding ?? DEFAULT_DISNEYBOUNDING}
+                  isAdmin={isAdmin}
+                  labelStyle="heading"
+                  onSave={handleSaveSection("disneybounding")}
                   onEditingChange={handleEditingChange}
                 />
               </CardContent>

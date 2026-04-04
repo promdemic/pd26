@@ -13,6 +13,7 @@ type SuccessState = {
   gettingThere?: InfoItem[];
   food?: InfoItem[];
   overnight?: InfoItem[];
+  disneybounding?: InfoItem[];
 };
 
 type State = { status: "loading" } | SuccessState | { status: "error" };
@@ -41,6 +42,7 @@ export const useTimeline = (editingRef: React.RefObject<boolean>) => {
           gettingThere: parsed.data.gettingThere,
           food: parsed.data.food,
           overnight: parsed.data.overnight,
+          disneybounding: parsed.data.disneybounding,
         };
         if (editingRef.current) {
           pendingRef.current = next;
@@ -70,7 +72,7 @@ export const useTimeline = (editingRef: React.RefObject<boolean>) => {
   };
 
   const saveSection = async (
-    field: "gettingThere" | "food" | "overnight",
+    field: "gettingThere" | "food" | "overnight" | "disneybounding",
     items: InfoItem[],
     uid: string,
   ) => {

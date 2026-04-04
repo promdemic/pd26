@@ -22,6 +22,7 @@ export const EventInfoSchema = z.object({
   gettingThere: z.array(InfoItemSchema).optional(),
   food: z.array(InfoItemSchema).optional(),
   overnight: z.array(InfoItemSchema).optional(),
+  disneybounding: z.array(InfoItemSchema).optional(),
   updatedAt: z.unknown().optional(),
   updatedBy: z.string().optional(),
 });
