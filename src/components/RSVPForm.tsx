@@ -14,6 +14,7 @@ import FormSkeleton from "@/components/FormSkeleton";
 import { useAuth } from "@/hooks/useAuth";
 import { useRsvp } from "@/hooks/useRsvp";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -145,11 +146,16 @@ const RSVPForm = () => {
             <Button
               onClick={handleSignIn}
               size="lg"
-              className="bg-gold text-navy hover:bg-[#b8943d]"
+              disabled={authState.status === "loading"}
+              className="bg-gold text-navy hover:bg-[#b8943d] disabled:opacity-70"
             >
-              {authState.status === "authenticated"
-                ? "Click here to RSVP"
-                : "Sign in with Google to RSVP"}
+              {authState.status === "loading" ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : authState.status === "authenticated" ? (
+                "Click here to RSVP"
+              ) : (
+                "Sign in with Google to RSVP"
+              )}
             </Button>
           </div>
         ) : (
