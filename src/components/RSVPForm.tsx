@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import FormSkeleton from "@/components/FormSkeleton";
+import { logEvent } from "@/lib/analytics";
 import { useAuth } from "@/hooks/useAuth";
 import { useRsvp } from "@/hooks/useRsvp";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,6 +65,7 @@ const RSVPForm = () => {
 
   const handleSignIn = () => {
     setExpanded(true);
+    logEvent("rsvp_sign_in_clicked");
     if (authState.status !== "authenticated") signInWithGoogle();
   };
 
@@ -91,6 +93,7 @@ const RSVPForm = () => {
         songs: data.songs,
         overnight: data.overnight === "yes",
       });
+      logEvent("rsvp_submitted", { overnight: data.overnight === "yes" });
       setSubmitStatus("success");
     } catch {
       setSubmitError("Something went wrong — please try again.");

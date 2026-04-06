@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import FormSkeleton from "@/components/FormSkeleton";
+import { logEvent } from "@/lib/analytics";
 import { useAuth } from "@/hooks/useAuth";
 import { useVolunteer } from "@/hooks/useVolunteer";
 import { VOLUNTEER_ROLES, type VolunteerRole } from "@/lib/volunteers";
@@ -57,6 +58,7 @@ const VolunteerForm = () => {
 
   const handleSignIn = () => {
     setExpanded(true);
+    logEvent("volunteer_sign_in_clicked");
     if (authState.status !== "authenticated") signInWithGoogle();
   };
 
@@ -81,6 +83,10 @@ const VolunteerForm = () => {
         name: data.name,
         role: data.role,
         email: authState.user.email ?? "",
+        overnight: data.overnight === "yes",
+      });
+      logEvent("volunteer_submitted", {
+        role: data.role,
         overnight: data.overnight === "yes",
       });
       setSubmitStatus("success");

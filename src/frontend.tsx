@@ -8,6 +8,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import { reportWebVitals } from "@/lib/analytics";
 
 const elem = document.getElementById("root")!;
 const app = (
@@ -15,6 +16,8 @@ const app = (
     <App />
   </StrictMode>
 );
+
+reportWebVitals();
 
 if (import.meta.hot) {
   // With hot module reloading, `import.meta.hot.data` is persisted.
