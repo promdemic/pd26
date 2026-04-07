@@ -4,8 +4,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import example1 from "@/assets/disneybounding-1.jpg";
-import example2 from "@/assets/disneybounding-2.jpeg";
+import example1 from "@/assets/disneybounding-3.jpg";
+import example2 from "@/assets/disneybounding-4.jpg";
 import { useState } from "react";
 
 const DisneyboundingExamples = () => {
