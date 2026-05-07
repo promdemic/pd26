@@ -33,9 +33,10 @@ export type EventInfo = z.infer<typeof EventInfoSchema>;
 
 export const RsvpSchema = z.object({
   name: z.string().min(1, "Name is required"),
+  attending: z.boolean().optional(),
   dietary: z.string().optional(),
   songs: z.string().optional(),
-  overnight: z.boolean(),
+  overnight: z.boolean().optional(),
   updatedAt: z.unknown().optional(),
 });
 

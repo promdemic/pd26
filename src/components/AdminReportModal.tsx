@@ -66,7 +66,8 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
   const volunteers: VolunteerRow[] =
     state.status === "ready" ? state.volunteers : [];
 
-  const studentsOvernight = rsvps.filter((r) => r.overnight).length;
+  const attendingRsvps = rsvps.filter((r) => r.attending !== false);
+  const studentsOvernight = attendingRsvps.filter((r) => r.overnight).length;
   const parentsOvernight = volunteers.filter((v) => v.overnight).length;
 
   return (
@@ -109,7 +110,7 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
           )}
           {/* Summary stats */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <StatCard label="Total RSVPs" value={rsvps.length} />
+            <StatCard label="Students Attending" value={attendingRsvps.length} />
             <StatCard label="Students Overnight" value={studentsOvernight} />
             <StatCard label="Total Volunteers" value={volunteers.length} />
             <StatCard label="Parents Overnight" value={parentsOvernight} />
@@ -168,6 +169,7 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                 <thead className="border-b border-border bg-sand">
                   <tr>
                     <Th>Name</Th>
+                    <Th>Attending</Th>
                     <Th>Overnight</Th>
                     <Th>Dietary</Th>
                     <Th>Song Requests</Th>
@@ -175,11 +177,11 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                 </thead>
                 <tbody className="divide-y divide-border">
                   {loading ? (
-                    <TableSkeleton cols={4} />
+                    <TableSkeleton cols={5} />
                   ) : error || rsvps.length === 0 ? (
                     <tr>
                       <td
-                        colSpan={4}
+                        colSpan={5}
                         className="px-3 py-4 text-center text-sm text-navy/40"
                       >
                         {error ? "Could not load data" : "No RSVPs yet"}
@@ -189,9 +191,10 @@ const AdminReportModal = ({ open, onOpenChange }: Props) => {
                     rsvps.map((r) => (
                       <tr key={r.uid} className="bg-white">
                         <Td>{r.name}</Td>
-                        <Td>{yesNo(r.overnight)}</Td>
-                        <Td>{empty(r.dietary)}</Td>
-                        <Td>{empty(r.songs)}</Td>
+                        <Td>{r.attending === false ? "No" : "Yes"}</Td>
+                        <Td>{r.attending === false ? "—" : yesNo(r.overnight ?? false)}</Td>
+                        <Td>{r.attending === false ? "—" : empty(r.dietary)}</Td>
+                        <Td>{r.attending === false ? "—" : empty(r.songs)}</Td>
                       </tr>
                     ))
                   )}

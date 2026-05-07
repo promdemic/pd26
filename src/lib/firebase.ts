@@ -5,7 +5,11 @@ import {
   GoogleAuthProvider,
   getAuth,
 } from "firebase/auth";
-import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import {
+  connectFirestoreEmulator,
+  getFirestore,
+  initializeFirestore,
+} from "firebase/firestore";
 
 // Bun inlines process.env.BUN_PUBLIC_* at bundle time — bracket notation
 // (process.env[key]) is NOT inlined and will throw in the browser.
@@ -37,7 +41,7 @@ const isNewApp = getApps().length === 0;
 const app = isNewApp ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+export const db = initializeFirestore(app, { ignoreUndefinedProperties: true });
 export const googleProvider = new GoogleAuthProvider();
 
 // Only connect on fresh init — prevents double-connect errors under HMR
